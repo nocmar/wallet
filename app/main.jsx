@@ -4,7 +4,4 @@ var Hello = React.createClass({
   }
 });
 
-ReactDOM.render(
-  <Hello name="World" />,
-  document.getElementById('container')
-);
+ReactDOM.render(<Hello name="Marta" />,  document.getElementById('container'));
