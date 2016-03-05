@@ -1,7 +1,7 @@
-var Hello = React.createClass({
-  render: function() {
-    return <div>Hello {this.props.name}</div>;
-  }
-});
+import React from "react";
+import First from "./first";
 
-ReactDOM.render(<Hello name="Marta" />,  document.getElementById('container'));
+React.render(
+  <First name="World"/>,
+  document.body
+);
