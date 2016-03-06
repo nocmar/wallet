@@ -1,10 +1,7 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import First from "./first";
 
-var Hello = React.createClass({  displayName: "Hello",
-  render: function () {
-    return React.createElement("div", null, "Hello", this.props.name);
-  }
-});
-
-ReactDOM.render(<Hello name="Marta" />,  document.getElementById('app'));
+React.render(
+  <First name="World"/>,
+  document.body
+);
