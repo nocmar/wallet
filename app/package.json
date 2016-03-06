@@ -1,11 +1,8 @@
 {
-  "name": "wallet",
-  "version": "0.0.1",
+  "name": "react-tutorials",
+  "version": "0.0.0",
   "description": "",
   "main": "webpack.config.js",
-  "scripts": {
-    "dev": "./node_modules/.bin/webpack-dev-server --content-base app --inline --hot"
-  },
   "dependencies": {
     "babel-loader": "^6.2.0",
     "babel-plugin-add-module-exports": "^0.1.2",
@@ -20,5 +17,11 @@
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.1"
   },
-    "author": "nocmar"
+  "devDependencies": {},
+  "scripts": {
+    "dev": "./node_modules/.bin/webpack-dev-server --content-base src --inline --hot",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC"
 }
