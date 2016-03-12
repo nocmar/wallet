@@ -5,6 +5,7 @@ export default React.createClass({
     return (
       <div className="first">
         Hello, {this.props.name}!
+                Hello, m!
       </div>
     );
   },
