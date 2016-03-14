@@ -1,12 +1,15 @@
 import React from "react";
 
 export default React.createClass({
+
   render: function() {
-    return (
-      <div className="first">
-        Hello, {this.props.name}!
-                Hello, m!
-      </div>
-    );
-  },
+        return (
+        <ul>
+            {this.props.list.map(function(listValue){
+              return <li>{listValue}</li>;
+            })}
+          </ul>
+
+        )
+    },
 });
