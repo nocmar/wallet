@@ -1,6 +1,7 @@
 import React from "react";
+import ReactDOM from "react-dom";
 import First from "./first";
 
-React.render(
-  <First list={[1,2,3,4,5,6]}/>,  document.body
+ReactDOM.render(
+  <First/>,  document.getElementById('app')
 );

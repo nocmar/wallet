@@ -1,15 +1,18 @@
 import React from "react";
 
-export default React.createClass({
-
-  render: function() {
+export default class First extends React.Component {
+constructor(){
+  super();
+   this.state = {date: 5};
+}
+  render(){
+    setInterval(()=> {
+      this.setState({date: this.state.date+1});
+    },6000)
         return (
-        <ul>
-            {this.props.list.map(function(listValue){
-              return <li>{listValue}</li>;
-            })}
-          </ul>
-
-        )
-    },
-});
+            <div>
+              {this.state.date}
+            </div>
+        );
+    }
+}
