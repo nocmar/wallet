@@ -5,21 +5,13 @@ import {Pagination, Panel, Well, Button, PageHeader} from "react-bootstrap";
 export default class ExpenseTable extends React.Component {
   constructor(props){
     super(props);
-    var rows = [];
-
-    this.props.expenses.forEach(function(expense) {
-          rows.push(<ExpenseRow expense={expense} key={expense.id} acceptExpense={this.acceptExpense}/> );
-        }.bind(this));
-    this.state ={
-      rows : rows,
-    };
-
-  }
-  acceptExpense(expense) {
-     alert("dzaiala ale to powinno byc poziom wyzej");
-  }
+}
 
   render(){
+    var rows=[];
+    this.props.expenses.forEach(function(expense) {
+          rows.push(<ExpenseRow expense={expense} key={expense.id} acceptExpense={this.props.acceptExpense}/> );
+        }.bind(this));
     return (
           <div>
             <div className="col-lg-12">
@@ -42,7 +34,7 @@ export default class ExpenseTable extends React.Component {
             <th>Notatki</th>
             <th>Potwierdzenie</th>
             </tr></thead>
-            <tbody>{this.state.rows}</tbody>
+            <tbody>{rows}</tbody>
           </table>
         </div>
     </Panel>

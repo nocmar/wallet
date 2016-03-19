@@ -43,16 +43,24 @@ export default class Expenses extends React.Component {
         }
       ];
 
-      this.state ={
+      this.state = {
         expenses : expenses,
       };
 
 
   }
+  acceptExpense(expense) {
+    expense.approved = true;
+    this.setState(
+      {
+        expenses : this.state.expenses
+      }
+    );
+  }
 
 render(){
   return (
-    <ExpenseTable expenses={this.state.expenses}/>
+    <ExpenseTable expenses={this.state.expenses} acceptExpense ={this.acceptExpense.bind(this)}/>
   );
 }
 }
