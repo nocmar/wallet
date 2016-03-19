@@ -8,7 +8,7 @@ export default class ExpenseTable extends React.Component {
 }
 
   render(){
-    var rows=[];
+    let rows=[];
     this.props.expenses.forEach(function(expense) {
           rows.push(<ExpenseRow expense={expense} key={expense.id} acceptExpense={this.props.acceptExpense}/> );
         }.bind(this));
