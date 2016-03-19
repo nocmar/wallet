@@ -16,11 +16,20 @@ export default class ExpenseTable extends React.Component {
           </div>
       <div className="col-lg-12">
       <div className="row ng-scope">
-  <div className="col-lg-6">
+      <div className="col-lg-8">
     <Panel header={<span>Twoje wydatki</span>} >
         <div className="table-responsive">
           <table className="table table-striped">
-            <thead> <tr> <th>Data </th><th>Konto</th><th>Tytuł</th><th>Kwota</th></tr></thead>
+            <thead> <tr>
+            <th>Data </th>
+            <th>Szczegłoy</th>
+            <th>Rodzaj</th>
+            <th>Typ</th>
+            <th>Konto</th>
+            <th>Kwota</th>
+            <th>Kategoria</th>
+            <th>Notatki</th>
+            </tr></thead>
             <tbody>{rows}</tbody>
           </table>
         </div>
