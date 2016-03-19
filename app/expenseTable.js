@@ -1,15 +1,19 @@
 import React from "react";
+import ExpenseRow from "./expenseRow"
 import {Pagination, Panel, Well, Button, PageHeader} from "react-bootstrap";
 
-export default class Expense extends React.Component {
+export default class ExpenseTable extends React.Component {
 
   render(){
-        return (
+    var rows = [];
+    this.props.expenses.forEach(function(expense) {
+    rows.push(<ExpenseRow expense={expense} key={expense.title} /> );
+    }.bind(this));
+    return (
           <div>
             <div className="col-lg-12">
            <PageHeader>Kontroler wydatków</PageHeader>
           </div>
-
       <div className="col-lg-12">
       <div className="row ng-scope">
   <div className="col-lg-6">
@@ -17,11 +21,7 @@ export default class Expense extends React.Component {
         <div className="table-responsive">
           <table className="table table-striped">
             <thead> <tr> <th>Data </th><th>Konto</th><th>Tytuł</th><th>Kwota</th></tr></thead>
-            <tbody>
-            <tr> <td>2016-01-01 </td><td>3243243 </td><td>Prad </td><td>100  </td>
-            </tr><tr> <td>2016-01-01</td><td>3243423 </td><td>Lidl</td><td>50  </td></tr>
-            <tr> <td>2016-01-01</td><td>32432432423 </td><td>Bilet </td><td>210   </td></tr>
-            </tbody>
+            <tbody>{rows}</tbody>
           </table>
         </div>
     </Panel>
