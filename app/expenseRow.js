@@ -1,5 +1,6 @@
 import React from "react";
-import Button from "react-bootstrap"
+import {Panel, Button, Input, Label, FormControls, Row, Col, PageHeader} from "react-bootstrap"
+
 
 export default class ExpenseRow extends React.Component
 {
@@ -20,6 +21,14 @@ export default class ExpenseRow extends React.Component
         <td>{this.props.expense.account}</td>
         <td>{this.props.expense.amount}</td>
         <td>{this.props.expense.category}</td>
+        <td>
+                    <Input type="select" placeholder="Kategoria" value ={this.props.expense.category}>
+                      <option value="Spożywcze">Spożywcze</option>
+                      <option value="Alkohol">Alkohol</option>
+                      <option value="Samochód">Samochód</option>
+                      <option value="Transport">Transport</option>
+                      <option value="Mieszkanie">Mieszkanie</option>
+                    </Input></td>
         <td>{this.props.expense.notes}</td>
         <td><button className="btn btn-success btn-lg" style={{width: "100%"}} disabled={disabled} onClick={this.handleClick.bind(this)}>OK</button></td>
       </tr>

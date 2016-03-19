@@ -38,7 +38,7 @@ export default class Expenses extends React.Component {
           "account": 123314324343,
           "amount": 3,
           "approved": false,
-          "category" : "Opłaty",
+          "category" : "Mieszkanie",
           "notes" : ""
         }
       ];
