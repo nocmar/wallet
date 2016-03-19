@@ -1,4 +1,4 @@
-## Wallet, application helping with control of expenses written in ReactJS
+## App that can help track your expenses, written in ReactJS
 
 ## Installation
 ####1. On the command prompt run the following commands
