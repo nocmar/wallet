@@ -11,6 +11,7 @@ export default class ExpenseRow extends React.Component
   handleCategoryChange(e){
      this.props.updateCategory(this.props.expense,e.target.value);
   }
+  
   render(){
   var disabled = (this.props.expense.approved);
   var state = this.props.expense.approved ?
