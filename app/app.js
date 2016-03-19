@@ -1,7 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import First from "./first";
+import Expense from "./expense";
 
 ReactDOM.render(
-  <First/>,  document.getElementById('app')
+  <Expense/>,  document.getElementById('app')
 );
