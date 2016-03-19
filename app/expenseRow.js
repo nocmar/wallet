@@ -8,6 +8,9 @@ export default class ExpenseRow extends React.Component
       this.props.acceptExpense(this.props.expense);
   }
 
+  handleCategoryChange(e){
+     this.props.updateCategory(this.props.expense,e.target.value);
+  }
   render(){
   var disabled = (this.props.expense.approved);
   var state = this.props.expense.approved ?
@@ -22,7 +25,7 @@ export default class ExpenseRow extends React.Component
         <td>{this.props.expense.amount}</td>
         <td>{this.props.expense.category}</td>
         <td>
-                    <Input type="select" placeholder="Kategoria" value ={this.props.expense.category}>
+                    <Input type="select" placeholder="Kategoria" value ={this.props.expense.category} onChange={this.handleCategoryChange.bind(this)}>
                       <option value="Spożywcze">Spożywcze</option>
                       <option value="Alkohol">Alkohol</option>
                       <option value="Samochód">Samochód</option>

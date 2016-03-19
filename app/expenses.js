@@ -33,7 +33,7 @@ export default class Expenses extends React.Component {
           "id":3,
           "tranactionDate": "2016-01-02",
           "transactionDetails": "Prad",
-          "transactionBankType": "Przelw",
+          "transactionBankType": "Przelew",
           "transactionType" : "Obciażenie",
           "account": 123314324343,
           "amount": 3,
@@ -58,9 +58,18 @@ export default class Expenses extends React.Component {
     );
   }
 
+  updateCategory(expense,newCategory){
+    expense.category = newCategory;
+    this.setState(
+      {
+        expenses : this.state.expenses
+      }
+    );
+  }
+
 render(){
   return (
-    <ExpenseTable expenses={this.state.expenses} acceptExpense ={this.acceptExpense.bind(this)}/>
+    <ExpenseTable expenses={this.state.expenses} acceptExpense ={this.acceptExpense.bind(this)} updateCategory={this.updateCategory.bind(this)}/>
   );
 }
 }
