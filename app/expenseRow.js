@@ -4,6 +4,13 @@ import {Panel, Button, Input, Label, FormControls, Row, Col, PageHeader} from "r
 
 export default class ExpenseRow extends React.Component
 {
+  constructor(props){
+    super(props);
+
+    this.handleCategoryChange = this.handleCategoryChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
+  }
+
   handleClick(e){
       this.props.acceptExpense(this.props.expense);
   }
@@ -11,7 +18,7 @@ export default class ExpenseRow extends React.Component
   handleCategoryChange(e){
      this.props.updateCategory(this.props.expense,e.target.value);
   }
-  
+
   render(){
   var disabled = (this.props.expense.approved);
   var state = this.props.expense.approved ?
@@ -26,7 +33,7 @@ export default class ExpenseRow extends React.Component
         <td>{this.props.expense.amount}</td>
         <td>{this.props.expense.category}</td>
         <td>
-                    <Input type="select" placeholder="Kategoria" value ={this.props.expense.category} onChange={this.handleCategoryChange.bind(this)}>
+                    <Input type="select" placeholder="Kategoria" value ={this.props.expense.category} onChange={this.handleCategoryChange}>
                       <option value="Spożywcze">Spożywcze</option>
                       <option value="Alkohol">Alkohol</option>
                       <option value="Samochód">Samochód</option>
@@ -34,7 +41,7 @@ export default class ExpenseRow extends React.Component
                       <option value="Mieszkanie">Mieszkanie</option>
                     </Input></td>
         <td>{this.props.expense.notes}</td>
-        <td><button className="btn btn-success btn-lg" style={{width: "100%"}} disabled={disabled} onClick={this.handleClick.bind(this)}>OK</button></td>
+        <td><button className="btn btn-success btn-lg" style={{width: "100%"}} disabled={disabled} onClick={this.handleClick}>OK</button></td>
       </tr>
     );
   }
