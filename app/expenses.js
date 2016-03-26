@@ -69,6 +69,7 @@ export default class Expenses extends React.Component {
 
 render(){
   return (
+
     <ExpenseTable expenses={this.state.expenses} acceptExpense ={this.acceptExpense.bind(this)} updateCategory={this.updateCategory.bind(this)}/>
   );
 }

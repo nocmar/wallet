@@ -31,7 +31,6 @@ export default class ExpenseRow extends React.Component
         <td>{this.props.expense.transactionType}</td>
         <td>{this.props.expense.account}</td>
         <td>{this.props.expense.amount}</td>
-        <td>{this.props.expense.category}</td>
         <td>
                     <Input type="select" placeholder="Kategoria" value ={this.props.expense.category} onChange={this.handleCategoryChange}>
                       <option value="Spożywcze">Spożywcze</option>
