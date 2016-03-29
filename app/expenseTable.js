@@ -45,7 +45,7 @@ handleChange(event) {
             <th>Potwierdzenie</th>
             </tr></thead>
             <tbody>
-        <NewExpense/>
+        <NewExpense addExpense={this.props.addExpense}/>
             {rows}</tbody>
           </table>
         </div>

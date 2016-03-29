@@ -58,6 +58,12 @@ export default class Expenses extends React.Component {
     );
   }
 
+  addExpense(expense){
+    this.state.expenses.push(expense);
+    this.setState({
+      expenses: this.state.expenses
+    });
+  }
   updateCategory(expense,newCategory){
     expense.category = newCategory;
     this.setState(
@@ -70,7 +76,7 @@ export default class Expenses extends React.Component {
 render(){
   return (
 
-    <ExpenseTable expenses={this.state.expenses} acceptExpense ={this.acceptExpense.bind(this)} updateCategory={this.updateCategory.bind(this)}/>
+    <ExpenseTable expenses={this.state.expenses} addExpense={this.addExpense.bind(this)} acceptExpense ={this.acceptExpense.bind(this)} updateCategory={this.updateCategory.bind(this)}/>
   );
 }
 }
