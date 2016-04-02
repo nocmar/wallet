@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1459599249771" clover="3.2.0">
+	<project timestamp="1459599249771"  name="All Files" >
+		<metrics statements="12"  coveredstatements="6"  conditionals="33"  coveredconditionals="14"  methods="12"  coveredmethods="6"  elements="57"  coveredelements="26"  complexity="0"  packages="1"  files="1"  classes="1"  loc="43"  ncloc="43" />
+		<package name="app" >
+			<metrics statements="12"  coveredstatements="6"  conditionals="33"  coveredconditionals="14"  methods="12"  coveredmethods="6" />
+			<file name="expenseRow.js"  path="/home/marta/Git/wallet/app/expenseRow.js" >
+				<metrics statements="12"  coveredstatements="6"  conditionals="33"  coveredconditionals="14"  methods="12"  coveredmethods="6" />
+				<line num="1"  count="3"  type="cond"  truecount="5"  falsecount="3" />
+				<line num="2"  count="1"  type="cond"  truecount="9"  falsecount="14" />
+				<line num="5"  count="1"  type="stmt" />
+				<line num="7"  count="1"  type="stmt" />
+				<line num="10"  count="0"  type="stmt" />
+				<line num="11"  count="1"  type="stmt" />
+				<line num="15"  count="0"  type="stmt" />
+				<line num="19"  count="0"  type="stmt" />
+				<line num="23"  count="0"  type="stmt" />
+				<line num="24"  count="0"  type="cond"  truecount="0"  falsecount="2" />
+				<line num="26"  count="0"  type="stmt" />
+				<line num="43"  count="1"  type="stmt" />
+			</file>
+		</package>
+	</project>
+</coverage>
