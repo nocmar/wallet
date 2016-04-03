@@ -1,4 +1,4 @@
-// __tests__/CheckboxWithLabel-test.js
+/* eslint-disable no-unused-vars */
 'use strict';
 
 jest.unmock('../../app/CheckboxWithLabel');
@@ -12,9 +12,12 @@ describe('CheckboxWithLabel', () => {
 
   it('changes the text after click', () => {
     // Render a checkbox with label in the document
+    expect(CheckboxWithLabel).toEqual('');
+
     const checkbox = TestUtils.renderIntoDocument(
       <CheckboxWithLabel labelOn="On" labelOff="Off" />
     );
+
 
     const checkboxNode = ReactDOM.findDOMNode(checkbox);
 
@@ -25,6 +28,7 @@ describe('CheckboxWithLabel', () => {
     TestUtils.Simulate.change(
       TestUtils.findRenderedDOMComponentWithTag(checkbox, 'input')
     );
+    // expect(checkbox).toEqual(true);
     expect(checkboxNode.textContent).toEqual('On');
   });
 
