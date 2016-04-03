@@ -26,18 +26,17 @@ describe('Expense row', function(){
             "transactionType" : "Obciażenie",
             "account": 123314324343,
             "amount": 20,
-            "approved": true,
+            "approved": false,
             "category" : "Spożywcze",
             "notes" : "jedzenie na weekend"
           };
-        const expenseRow = TestUtils.renderIntoDocument(<table><tbody><ExpenseRow expense={expense}/></tbody></table>);
+        const expenseRow = TestUtils.renderIntoDocument(<ExpenseRow expense={expense}/>);
  //       const checkboxNode = ReactDOM.findDOMNode(expenseRow);
         //     expect(checkboxNode).toEqual(false);
          //const expenseNode = ReactDOM.findDOMNode(expenseRow);
           // var lable = TestUtils.findRenderedDOMComponentWithClass(expenseRow,'test');
         var button = TestUtils.findRenderedDOMComponentWithTag(expenseRow,'button');
-
-
+        expect(button.disabled).toEqual(true);
     });
   });
 });
