@@ -1,9 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1459599249771" clover="3.2.0">
-	<project timestamp="1459599249771"  name="All Files" >
-		<metrics statements="12"  coveredstatements="6"  conditionals="33"  coveredconditionals="14"  methods="12"  coveredmethods="6"  elements="57"  coveredelements="26"  complexity="0"  packages="1"  files="1"  classes="1"  loc="43"  ncloc="43" />
+<coverage generated="1459682721065" clover="3.2.0">
+	<project timestamp="1459682721065"  name="All Files" >
+		<metrics statements="20"  coveredstatements="14"  conditionals="66"  coveredconditionals="34"  methods="23"  coveredmethods="17"  elements="109"  coveredelements="65"  complexity="0"  packages="1"  files="2"  classes="2"  loc="69"  ncloc="69" />
 		<package name="app" >
-			<metrics statements="12"  coveredstatements="6"  conditionals="33"  coveredconditionals="14"  methods="12"  coveredmethods="6" />
+			<metrics statements="20"  coveredstatements="14"  conditionals="66"  coveredconditionals="34"  methods="23"  coveredmethods="17" />
+			<file name="CheckboxWithLabel.js"  path="/home/marta/Git/wallet/app/CheckboxWithLabel.js" >
+				<metrics statements="8"  coveredstatements="8"  conditionals="33"  coveredconditionals="20"  methods="11"  coveredmethods="11" />
+				<line num="1"  count="2"  type="cond"  truecount="18"  falsecount="13" />
+				<line num="3"  count="1"  type="stmt" />
+				<line num="5"  count="1"  type="stmt" />
+				<line num="7"  count="1"  type="stmt" />
+				<line num="11"  count="1"  type="stmt" />
+				<line num="15"  count="1"  type="stmt" />
+				<line num="19"  count="2"  type="stmt" />
+				<line num="26"  count="1"  type="cond"  truecount="2"  falsecount="0" />
+			</file>
 			<file name="expenseRow.js"  path="/home/marta/Git/wallet/app/expenseRow.js" >
 				<metrics statements="12"  coveredstatements="6"  conditionals="33"  coveredconditionals="14"  methods="12"  coveredmethods="6" />
 				<line num="1"  count="3"  type="cond"  truecount="5"  falsecount="3" />

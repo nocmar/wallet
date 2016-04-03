@@ -30,7 +30,6 @@
     "react-addons-test-utils" : "^0.14.7"
   },
   "jest": {
-
     "unmockedModulePathPatterns": [
       "<rootDir>/node_modules/react",
       "<rootDir>/node_modules/react-dom",
