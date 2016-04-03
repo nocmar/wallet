@@ -7,7 +7,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 import CheckboxWithLabel from '../../app/CheckboxWithLabel';
-import {Panel, Button, Input, Label, FormControls, Row, Col, PageHeader} from "react-bootstrap"
+
 
 describe('CheckboxWithLabel', () => {
 
@@ -20,7 +20,7 @@ describe('CheckboxWithLabel', () => {
 
 
     const checkboxNode = ReactDOM.findDOMNode(checkbox);
-
+    
     // Verify that it's Off by default
     expect(checkboxNode.textContent).toEqual('Off');
 

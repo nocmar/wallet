@@ -20,32 +20,28 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">70% </span>
+        <span class="strong">88% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>35/50</span>
+        <span class='fraction'>44/50</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">42.42% </span>
+        <span class="strong">57.58% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>14/33</span>
+        <span class='fraction'>19/33</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">50% </span>
+        <span class="strong">83.33% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>6/12</span>
+        <span class='fraction'>10/12</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">50% </span>
+        <span class="strong">83.33% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>6/12</span>
-      </div>
-      <div class='fl pad1y'>
-        <span class="strong">2 statements</span>
-        <span class="quiet">Ignored</span>  &nbsp;&nbsp;&nbsp;&nbsp;
+        <span class='fraction'>10/12</span>
       </div>
     </div>
   </div>
-  <div class='status-line medium'></div>
+  <div class='status-line high'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet">1
 2
@@ -104,7 +100,7 @@
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -117,10 +113,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">1×</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -144,16 +140,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js">import React from "react";<span class="cstat-no" title="statement not covered" ><span class="missing-if-branch" title="if path not taken" >I</span><span class="missing-if-branch" title="else path not taken" >E</span><span class="missing-if-branch" title="else path not taken" >E</span></span>
-import {Panel, Button, Input, Label, FormControls, Row, Col, PageHeader} from "react-bootstrap"<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" ><span class="fstat-no" title="function not covered" ><span class="branch-1 cbranch-no" title="branch not covered" ><span class="missing-if-branch" title="else path not taken" >E</span><span class="branch-1 cbranch-no" title="branch not covered" ><span class="missing-if-branch" title="if path not taken" >I</span><span class="branch-0 cbranch-no" title="branch not covered" ></span></span></span></span></span></span></span></span></span></span></span>
+import {Panel, Button, Input, Label, FormControls, Row, Col, PageHeader} from "react-bootstrap"<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ><span class="branch-1 cbranch-no" title="branch not covered" ><span class="missing-if-branch" title="else path not taken" >E</span><span class="branch-1 cbranch-no" title="branch not covered" ><span class="missing-if-branch" title="if path not taken" >I</span><span class="branch-2 cbranch-no" title="branch not covered" ><span class="branch-1 cbranch-no" title="branch not covered" ><span class="branch-0 cbranch-no" title="branch not covered" ><span class="missing-if-branch" title="if path not taken" >I</span><span class="missing-if-branch" title="if path not taken" >I</span><span class="branch-0 cbranch-no" title="branch not covered" ></span></span></span></span></span></span></span></span></span>
 &nbsp;
 &nbsp;
 export default class ExpenseRow extends React.Component
 {
-<span class="fstat-no" title="function not covered" >  constructor(props){<span class="cstat-no" title="statement not covered" ><span class="cstat-no" title="statement not covered" ></span></span></span>
+  constructor(props){
     super(props);
 &nbsp;
-    this.handleCategoryChang<span class="cstat-no" title="statement not covered" >e = this.handleCategoryChange.bind(this);</span>
-    this.handleClick = this.<span class="cstat-skip" title="statement not covered" >handleClick.bind(this);<span class="cstat-skip" title="statement not covered" ><span class="fstat-no" title="function not covered" ></span></span></span>
+    this.handleCategoryChange = this.handleCategoryChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);<span class="fstat-no" title="function not covered" ></span>
   }
 &nbsp;
   handleClick(e){
@@ -161,14 +157,14 @@ export default class ExpenseRow extends React.Component
   }
 &nbsp;
   handleCategoryChange(e){
-     t<span class="cstat-no" title="statement not covered" >his.props.updateCategory(this.props.expense,e.target.value);<span class="fstat-no" title="function not covered" ></span></span>
+     t<span class="cstat-no" title="statement not covered" >his.props.updateCategory(this.props.expense,e.target.value);</span>
   }
 &nbsp;
   render(){
-  var <span class="cstat-no" title="statement not covered" >disabled = (this.props.expense.approved);</span>
-  var <span class="cstat-no" title="statement not covered" >state = this.props.expense.approved ?</span>
-     state = "success" : state = "warning";
-    re<span class="cstat-no" title="statement not covered" >turn (</span>
+  var disabled = (this.props.expense.approved);
+  var state = this.props.expense.approved ?
+     state = "success" : s<span class="branch-1 cbranch-no" title="branch not covered" >tate = "warning";</span>
+    return (
       &lt;tr className={state}&gt;
         &lt;td style={{width: "10%"}}&gt;{this.props.expense.tranactionDate}&lt;/td&gt;
         &lt;td style={{width: "20%"}}&gt;{this.props.expense.transactionDetails}&lt;/td&gt;
@@ -197,7 +193,7 @@ export default class ExpenseRow extends React.Component
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Apr 03 2016 13:25:20 GMT+0200 (CEST)
+  generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Sun Apr 03 2016 17:52:16 GMT+0200 (CEST)
 </div>
 </div>
 <script src="../prettify.js"></script>

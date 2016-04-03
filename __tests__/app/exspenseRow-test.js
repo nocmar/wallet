@@ -1,11 +1,16 @@
 "use strict";
 
-jest.dontMock('../../app/expenseRow.js');
+jest.unmock('../../app/expenseRow.js');
+jest.unmock('react-bootstrap');
+// jest.dontMock('classnames');
+
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
 import ExpenseRow from '../../app/expenseRow.js';
-
+//import ExpenseTest from '../../app/expenseTest.js';
+import {Panel, Button, Input, Label, FormControls, Row, Col, PageHeader} from "react-bootstrap"
 
 describe('Expense row', function(){
   describe('Button OK', ()=>{
@@ -25,12 +30,13 @@ describe('Expense row', function(){
             "category" : "Spożywcze",
             "notes" : "jedzenie na weekend"
           };
-        var expenseRow = TestUtils.renderIntoDocument(
-          <ExpenseRow expense={expense}/>);
+        const expenseRow = TestUtils.renderIntoDocument(<table><tbody><ExpenseRow expense={expense}/></tbody></table>);
+ //       const checkboxNode = ReactDOM.findDOMNode(expenseRow);
+        //     expect(checkboxNode).toEqual(false);
          //const expenseNode = ReactDOM.findDOMNode(expenseRow);
+          // var lable = TestUtils.findRenderedDOMComponentWithClass(expenseRow,'test');
+        var button = TestUtils.findRenderedDOMComponentWithTag(expenseRow,'button');
 
-         var button = TestUtils.findRenderedDOMComponentWithTag(expenseRow,'button');
-        expect(expenseNode).toEqual(false);
 
     });
   });
