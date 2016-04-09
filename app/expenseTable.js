@@ -1,7 +1,8 @@
 import React from "react";
 import ExpenseRow from "./expenseRow"
 import NewExpense from "./newExpense"
-import {Pagination, Panel, Well, Button, PageHeader} from "react-bootstrap";
+import {Pagination, Panel, Well, Button, PageHeader} from "react-bootstrap"
+import styles from '../css/panel-styles'
 
 export default class ExpenseTable extends React.Component {
   constructor(props){
@@ -23,7 +24,7 @@ handleChange(event) {
 
           <div>
             <div className="col-lg-12">
-           <PageHeader>Kontroler wydatków</PageHeader>
+           <PageHeader style={styles.header}>Kontroler wydatków</PageHeader>
           </div>
                   <NewExpense addExpense={this.props.addExpense}/>
       <div className="col-lg-12">
@@ -31,7 +32,7 @@ handleChange(event) {
       <div className="col-lg-10">
 
     <Panel header={<span>Twoje wydatki</span>} >
-        <div className="table-responsive">
+        <div className="table-responsive" style={styles.body}>
 
           <table className="table table-striped">
             <thead> <tr>
