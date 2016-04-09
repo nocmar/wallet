@@ -7,9 +7,10 @@ export default class NewExpense extends React.Component {
     super(props);
     var currentdate = new Date();
     this.state = {
-      details : "wpisz cos",
+      showButton : true,
+      details : "",
       amount : null,
-      notes : "notatki",
+      notes : "",
       date: currentdate,
       category : ""
     };
@@ -34,6 +35,10 @@ export default class NewExpense extends React.Component {
       this.setState({category: event.target.value});
  }
 
+ handleAddNewClick(event){
+    this.setState({showButton : false})
+ }
+
  handleOKClick(event) {
    var expense  =  {
        "id":Date.now(),
@@ -48,36 +53,42 @@ export default class NewExpense extends React.Component {
        "notes" : this.state.notes
      }
    this.props.addExpense(expense);
+   this.setState({
+       details : "",
+       amount : null,
+       notes : "",
+         date: "",
+       category : ""
+     });
  }
 
  handleCancelClick(event) {
-   alert(this);
-      this.setState({
-          details : "",
-          amount : 0,
-          notes : "",
-          date: "",
-          category : ""
-        });
+       this.setState({showButton : true})
  }
 
  render(){
+
+  if(this.state.showButton){
+        return(
+          <div className="col-lg-3">
+                         <button className="btn btn-success btn-lg" style={{width: "50%"}} onClick={this.handleAddNewClick.bind(this)}>+ Nowy</button>
+                         </div>)
+  }
+  else {
+
+
+
     return(
 
-      <div className="col-lg-4">
+      <div className="col-lg-3">
+
       <form role="form">
       <Panel header={<span>Nowy wydatek</span>} >
       <Accordion>
-
-                       <Panel header={<h4 className="panel-title">
-                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Podstawowe informacje</a>
-                                       </h4>}  eventKey="1">
-
-
-        <div className="form-group input-group">
-            <span className="input-group-addon">$</span>
-            <input type="text" className="form-control" onChange={this.handleAmountChange} value ={this.state.amount} placeholder="Kwota"/>
-        </div>
+      <div className="form-group input-group">
+          <span className="input-group-addon">$</span>
+          <input type="text" className="form-control" onChange={this.handleAmountChange} value ={this.state.amount} placeholder="Kwota"/>
+      </div>
         <div className="form-group input-group" style={styles.form}  >
           <label className="control-label">Kategoria</label>
             <Input type="select" placeholder="Kategoria" value ={this.state.category} onChange={this.handleCategoryChange}>
@@ -93,12 +104,10 @@ export default class NewExpense extends React.Component {
             <input type="text" className="form-control" onChange={this.handleDetailsChange} value ={this.state.details}/>
 
         </div>
-             </Panel>
+                       <Panel header={<h4 className="panel-title">
+                                                  <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Szczegóły</a>
+                                                </h4>}  eventKey="1">
 
-    <Panel header={<h4 className="panel-title">
-
-                                   <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Szczegóły</a>
-                                 </h4>}  eventKey="2">
         <div className="form-group input-group" style={styles.form}  >
           <label className="control-label">Konto</label>
           <Input type="select" placeholder="Konto">
@@ -126,5 +135,5 @@ export default class NewExpense extends React.Component {
                                                                                     </form>
     </div>
 
-        )}
+  )}}
 }
