@@ -25,6 +25,7 @@ handleChange(event) {
             <div className="col-lg-12">
            <PageHeader>Kontroler wydatków</PageHeader>
           </div>
+                  <NewExpense addExpense={this.props.addExpense}/>
       <div className="col-lg-12">
       <div className="row ng-scope">
       <div className="col-lg-10">
@@ -45,7 +46,7 @@ handleChange(event) {
             <th>Potwierdzenie</th>
             </tr></thead>
             <tbody>
-        <NewExpense addExpense={this.props.addExpense}/>
+
             {rows}</tbody>
           </table>
         </div>
