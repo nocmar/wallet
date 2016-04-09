@@ -24,8 +24,8 @@ export default class ExpenseRow extends React.Component
   var state = this.props.expense.approved ?
      state = "success" : state = "warning";
     return (
-      <table>
-      <tbody>
+      // <table>
+      // <tbody>
       <tr className={state}>
         <td style={{width: "10%"}}>{this.props.expense.tranactionDate}</td>
         <td style={{width: "20%"}}>{this.props.expense.transactionDetails}</td>
@@ -44,8 +44,8 @@ export default class ExpenseRow extends React.Component
         <td>{this.props.expense.notes}</td>
         <td><button className="btn btn-success btn-lg" style={{width: "100%"}} disabled={disabled} onClick={this.handleClick}>OK</button></td>
       </tr>
-            </tbody>
-      </table>
+      //       </tbody>
+      // </table>
 
     );
   }
