@@ -1,5 +1,6 @@
 import React from "react";
-import {Pagination, Panel, Well, Button, PageHeader, Input} from "react-bootstrap";
+import {Panel, Accordion, Well, Jumbotron, Button, Tabs, Tab, PageHeader, Input} from 'react-bootstrap';
+import styles from '../css/newExpense-styles'
 
 export default class NewExpense extends React.Component {
   constructor(props){
@@ -62,50 +63,68 @@ export default class NewExpense extends React.Component {
 
  render(){
     return(
-          <div className="col-lg-2">
+
+      <div className="col-lg-4">
       <form role="form">
-                                              <div className="form-group input-group" style ={{width: "100%"}}  >
-                                                  <label className="control-label">Data transakcji</label>
-                                                  <input type="text" className="form-control" style={{width: "100%"}}  onChange={this.handleDateChange} value ={this.state.date}/>
-                                              </div>
-                                              <div className="form-group input-group" style ={{width: "100%"}}  >
-                                                  <label className="control-label">Szczegóły transakcji</label>
-                                                  <input type="text" className="form-control" onChange={this.handleDetailsChange} value ={this.state.details}/>
+      <Panel header={<span>Nowy wydatek</span>} >
+      <Accordion>
 
-                                              </div>
-                                              <div className="form-group input-group" style ={{width: "100%"}}  >
-                                                  <label className="control-label">Notatki</label>
-                                                  <input type="text" className="form-control" onChange={this.handleNotesChange} value ={this.state.notes}/>
-
-                                              </div>
-                                              <div className="form-group input-group" style ={{width: "100%"}}  >
-                                                <label className="control-label">Kategoria</label>
-                                                  <Input type="select" placeholder="Kategoria" style ={{width: "100%"}} value ={this.state.category} onChange={this.handleCategoryChange}>
-                                                    <option value="Spożywcze">Spożywcze</option>
-                                                    <option value="Alkohol">Alkohol</option>
-                                                    <option value="Samochód">Samochód</option>
-                                                    <option value="Transport">Transport</option>
-                                                    <option value="Mieszkanie">Mieszkanie</option>
-                                                  </Input>
-                                              </div>
-                                              <div className="form-group input-group" style ={{width: "100%"}}  >
-                                                <label className="control-label">Konto</label>
-                                                <Input type="select" placeholder="Konto">
-                                                            <option value="Portfel">Portfel</option>
-                                                            <option value="mbank">Karta mbank</option>
-                                                </Input>
-                                              </div>
-                                              <div className="form-group input-group">
+                       <Panel header={<h4 className="panel-title">
+                                         <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Podstawowe informacje</a>
+                                       </h4>}  eventKey="1">
 
 
-                                                  <span className="input-group-addon">$</span>
-                                                  <input type="text" className="form-control" onChange={this.handleAmountChange} value ={this.state.amount} placeholder="Kwota"/>
+        <div className="form-group input-group">
+            <span className="input-group-addon">$</span>
+            <input type="text" className="form-control" onChange={this.handleAmountChange} value ={this.state.amount} placeholder="Kwota"/>
+        </div>
+        <div className="form-group input-group" style={styles.form}  >
+          <label className="control-label">Kategoria</label>
+            <Input type="select" placeholder="Kategoria" value ={this.state.category} onChange={this.handleCategoryChange}>
+              <option value="Spożywcze">Spożywcze</option>
+              <option value="Alkohol">Alkohol</option>
+              <option value="Samochód">Samochód</option>
+              <option value="Transport">Transport</option>
+              <option value="Mieszkanie">Mieszkanie</option>
+            </Input>
+        </div>
+        <div className="form-group input-group" style={styles.form} >
+            <label className="control-label">Opis</label>
+            <input type="text" className="form-control" onChange={this.handleDetailsChange} value ={this.state.details}/>
 
-                                              </div>
-                                              <button className="btn btn-success btn-lg" style={{width: "50%"}} onClick={this.handleOKClick.bind(this)}>OK</button>
-                                                <button className="btn btn-warning btn-lg" style={{width: "50%"}} onClick={this.handleCancelClick.bind(this)}>Anuluj</button>
-                                          </form>
-                                          </div>
+        </div>
+             </Panel>
+
+    <Panel header={<h4 className="panel-title">
+
+                                   <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">Szczegóły</a>
+                                 </h4>}  eventKey="2">
+        <div className="form-group input-group" style={styles.form}  >
+          <label className="control-label">Konto</label>
+          <Input type="select" placeholder="Konto">
+                      <option value="Portfel">Portfel</option>
+                      <option value="mbank">Karta mbank</option>
+          </Input>
+        </div>
+        <div className="form-group input-group" style={styles.form}>
+            <label className="control-label">Data transakcji</label>
+            <input type="text" className="form-control"   onChange={this.handleDateChange} value ={this.state.date}/>
+        </div>
+
+                                                      <div className="form-group input-group" style={styles.form}  >
+                                                          <label className="control-label">Notatki</label>
+                                                          <input type="text" className="form-control" onChange={this.handleNotesChange} value ={this.state.notes}/>
+
+                                                      </div>
+
+                 </Panel>
+
+               </Accordion>
+               <button className="btn btn-success btn-lg" style={{width: "50%"}} onClick={this.handleOKClick.bind(this)}>OK</button>
+                 <button className="btn btn-warning btn-lg" style={{width: "50%"}} onClick={this.handleCancelClick.bind(this)}>Anuluj</button>
+             </Panel>
+                                                                                    </form>
+    </div>
 
         )}
 }
