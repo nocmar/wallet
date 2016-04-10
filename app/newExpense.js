@@ -1,4 +1,6 @@
 import React from "react";
+import moment from  "moment";
+import DatePicker from "react-datepicker";
 import {Panel, Accordion, Well, Jumbotron, Button, Tabs, Tab, PageHeader, Input} from 'react-bootstrap';
 import styles from '../css/newExpense-styles'
 
@@ -67,7 +69,6 @@ export default class NewExpense extends React.Component {
  }
 
  render(){
-
   if(this.state.showButton){
         return(
           <div className="col-lg-3">
@@ -75,13 +76,8 @@ export default class NewExpense extends React.Component {
                          </div>)
   }
   else {
-
-
-
     return(
-
       <div className="col-lg-3">
-
       <form role="form">
       <Panel header={<span>Nowy wydatek</span>} >
       <Accordion>
@@ -107,7 +103,6 @@ export default class NewExpense extends React.Component {
                        <Panel header={<h4 className="panel-title">
                                                   <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Szczegóły</a>
                                                 </h4>}  eventKey="1">
-
         <div className="form-group input-group" style={styles.form}  >
           <label className="control-label">Konto</label>
           <Input type="select" placeholder="Konto">
@@ -117,22 +112,20 @@ export default class NewExpense extends React.Component {
         </div>
         <div className="form-group input-group" style={styles.form}>
             <label className="control-label">Data transakcji</label>
-            <input type="text" className="form-control"   onChange={this.handleDateChange} value ={this.state.date}/>
+            <DatePicker
+    selected={this.state.date}
+    onChange={this.handleDateChange} />
         </div>
-
-                                                      <div className="form-group input-group" style={styles.form}  >
-                                                          <label className="control-label">Notatki</label>
-                                                          <input type="text" className="form-control" onChange={this.handleNotesChange} value ={this.state.notes}/>
-
-                                                      </div>
-
+              <div className="form-group input-group" style={styles.form}  >
+                  <label className="control-label">Notatki</label>
+              <input type="text" className="form-control" onChange={this.handleNotesChange} value ={this.state.notes}/>
+        </div>
                  </Panel>
-
                </Accordion>
                <button className="btn btn-success btn-lg" style={{width: "50%"}} onClick={this.handleOKClick.bind(this)}>OK</button>
                  <button className="btn btn-warning btn-lg" style={{width: "50%"}} onClick={this.handleCancelClick.bind(this)}>Anuluj</button>
              </Panel>
-                                                                                    </form>
+        </form>
     </div>
 
   )}}
