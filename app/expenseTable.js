@@ -7,19 +7,20 @@ import styles from '../css/panel-styles'
 export default class ExpenseTable extends React.Component {
   constructor(props){
     super(props);
-    this.state = {
-      value : "wpisz cos",
-    };
+    // this.state = {
+    //   value : "wpisz cos",
+    // };
 }
-handleChange(event) {
-   this.setState({value: event.target.value});
- }
+// handleChange(event) {
+//    this.setState({value: event.target.value});
+//  }
 
   render(){
     let rows=[];
     this.props.expenses.forEach(function(expense) {
           rows.push(<ExpenseRow expense={expense} key={expense.id} acceptExpense={this.props.acceptExpense} updateCategory={this.props.updateCategory}/> );
         }.bind(this));
+
     return (
 
           <div>
@@ -33,7 +34,6 @@ handleChange(event) {
 
     <Panel header={<span>Twoje wydatki</span>} >
         <div className="table-responsive" style={styles.body}>
-
           <table className="table table-striped">
             <thead> <tr>
             <th>Data </th>
@@ -47,7 +47,6 @@ handleChange(event) {
             <th>Potwierdzenie</th>
             </tr></thead>
             <tbody>
-
             {rows}</tbody>
           </table>
         </div>

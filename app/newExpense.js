@@ -2,23 +2,26 @@ import React from "react";
 import moment from  "moment";
 import DatePicker from "react-datepicker";
 import {Panel, Accordion, Well, Jumbotron, Button, Tabs, Tab, PageHeader, Input} from 'react-bootstrap';
-import styles from '../css/newExpense-styles'
+import styles from '../css/newExpense-styles';
+import '../node_modules/react-datepicker/dist/react-datepicker.css';
 
 export default class NewExpense extends React.Component {
   constructor(props){
     super(props);
-    var currentdate = new Date();
+
     this.state = {
       showButton : true,
       details : "",
       amount : null,
       notes : "",
-      date: currentdate,
+      date: moment(),
       category : ""
     };
 }
- handleDateChange(event) {
-   this.setState({date: event.target.value});
+ handleDateChange(date) {
+   //alert(event.target.value);
+   alert (typeof(date));
+   //this.setState({date: date.toDate()});
  }
 
  handleDetailsChange(event) {
@@ -44,7 +47,7 @@ export default class NewExpense extends React.Component {
  handleOKClick(event) {
    var expense  =  {
        "id":Date.now(),
-       "tranactionDate": "2016-01-02",
+       "tranactionDate": moment(this.state.date).format('MM/DD/YYYY'),
        "transactionDetails": this.state.details,
        "transactionBankType": "Przelew",
        "transactionType" : "Obciażenie",
@@ -56,11 +59,13 @@ export default class NewExpense extends React.Component {
      }
    this.props.addExpense(expense);
    this.setState({
+       showButton : true,
        details : "",
        amount : null,
        notes : "",
-         date: "",
-       category : ""
+       date: moment(),
+       category : "",
+       approved : false
      });
  }
 
@@ -83,11 +88,11 @@ export default class NewExpense extends React.Component {
       <Accordion>
       <div className="form-group input-group">
           <span className="input-group-addon">$</span>
-          <input type="text" className="form-control" onChange={this.handleAmountChange} value ={this.state.amount} placeholder="Kwota"/>
+          <input type="text" className="form-control" onChange={this.handleAmountChange.bind(this)} value ={this.state.amount} placeholder="Kwota"/>
       </div>
         <div className="form-group input-group" style={styles.form}  >
           <label className="control-label">Kategoria</label>
-            <Input type="select" placeholder="Kategoria" value ={this.state.category} onChange={this.handleCategoryChange}>
+            <Input type="select" placeholder="Kategoria" value ={this.state.category} onChange={this.handleCategoryChange.bind(this)}>
               <option value="Spożywcze">Spożywcze</option>
               <option value="Alkohol">Alkohol</option>
               <option value="Samochód">Samochód</option>
@@ -97,10 +102,10 @@ export default class NewExpense extends React.Component {
         </div>
         <div className="form-group input-group" style={styles.form} >
             <label className="control-label">Opis</label>
-            <input type="text" className="form-control" onChange={this.handleDetailsChange} value ={this.state.details}/>
+            <input type="text" className="form-control" onChange={this.handleDetailsChange.bind(this)} value ={this.state.details}/>
 
         </div>
-                       <Panel header={<h4 className="panel-title">
+     <Panel header={<h4 className="panel-title">
                                                   <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Szczegóły</a>
                                                 </h4>}  eventKey="1">
         <div className="form-group input-group" style={styles.form}  >
@@ -112,13 +117,12 @@ export default class NewExpense extends React.Component {
         </div>
         <div className="form-group input-group" style={styles.form}>
             <label className="control-label">Data transakcji</label>
-            <DatePicker
-    selected={this.state.date}
-    onChange={this.handleDateChange} />
+            <DatePicker    selected={this.state.date}
+    onChange={this.handleDateChange.bind(this)} />
         </div>
               <div className="form-group input-group" style={styles.form}  >
                   <label className="control-label">Notatki</label>
-              <input type="text" className="form-control" onChange={this.handleNotesChange} value ={this.state.notes}/>
+              <input type="text" className="form-control" onChange={this.handleNotesChange.bind(this)} value ={this.state.notes}/>
         </div>
                  </Panel>
                </Accordion>
