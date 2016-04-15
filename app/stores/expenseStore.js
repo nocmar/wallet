@@ -1,6 +1,5 @@
-import { EventEmitter } from "events";
-
-//import dispatcher from "../dispatcher";
+import EventEmitter from "events";
+import Dispatcher from "../dispatcher";
 
 class ExpenseStore extends EventEmitter {
   constructor() {
@@ -51,26 +50,19 @@ class ExpenseStore extends EventEmitter {
   }
 
   getAll() {
-    return this.;
+    return this.expenses;
   }
 
-  // handleActions(action) {
-  //   switch(action.type) {
-  //     case "CREATE_TODO": {
-  //       this.createTodo(action.text);
-  //       break;
-  //     }
-  //     case "RECEIVE_TODOS": {
-  //       this.todos = action.todos;
-  //       this.emit("change");
-  //       break;
-  //     }
-  //   }
-  // }
-
+  handleAction(action){
+    console.log("Action", action);
+    switch(action.type){
+      case "CREATE_EXPENSE":{
+        this.createExpense(action.expense);
+      }
+    }
+  }
 }
 
 const expenseStore = new ExpenseStore;
-//dispatcher.register(expenseStore.handleActions.bind(todoStore));
-
+Dispatcher.register(expenseStore.handleAction.bind(expenseStore))
 export default expenseStore;

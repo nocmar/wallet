@@ -1,7 +1,7 @@
 import React from "react";
 import ExpenseTable from "./expenseTable";
 import ExpenseStore from "./stores/expenseStore";
-
+import * as ExpenseActions from "./actions/expenseActions";
 export default class Expenses extends React.Component {
   constructor(){
       super();
@@ -13,6 +13,13 @@ export default class Expenses extends React.Component {
 
 
   }
+  componentWillMount(){
+    ExpenseStore.on("change",()=> {
+      this.setState({
+        expenses: ExpenseStore.getAll(),
+      })
+    })
+  }
   acceptExpense(expense) {
     expense.approved = true;
     this.setState(
@@ -21,21 +28,17 @@ export default class Expenses extends React.Component {
       }
     );
   }
-
-  addExpense(expense){
-    this.state.expenses.push(expense);
-    this.setState({
-      expenses: this.state.expenses
-    });
-  }
   updateCategory(expense,newCategory){
     expense.category = newCategory;
     this.setState(
-      {
-        expenses : this.state.expenses
-      }
-    );
-  }
+      {                                                          
+      expenses : this.state.expenses
+       }
+  );
+ }
+  addExpense(expense){
+    ExpenseActions.createExpense(expense);
+}
 
 render(){
   return (
