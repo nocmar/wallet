@@ -83,7 +83,6 @@ export default class NewExpense extends React.Component {
   else {
     return(
       <div className="col-lg-3">
-      <form role="form">
       <Panel header={<span>Nowy wydatek</span>} >
       <Accordion>
       <div className="form-group input-group">
@@ -129,7 +128,6 @@ export default class NewExpense extends React.Component {
                <button className="btn btn-success btn-lg" style={{width: "50%"}} onClick={this.handleOKClick.bind(this)}>OK</button>
                  <button className="btn btn-warning btn-lg" style={{width: "50%"}} onClick={this.handleCancelClick.bind(this)}>Anuluj</button>
              </Panel>
-        </form>
     </div>
 
   )}}
