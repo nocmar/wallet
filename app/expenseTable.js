@@ -24,13 +24,9 @@ export default class ExpenseTable extends React.Component {
     return (
 
           <div>
-            <div className="col-lg-12">
-           <PageHeader style={styles.header}>Kontroler wydatków</PageHeader>
-          </div>
+
                   <NewExpense addExpense={this.props.addExpense}/>
       <div className="col-lg-12">
-      <div className="row ng-scope">
-      <div className="col-lg-10">
 
     <Panel header={<span>Twoje wydatki</span>} >
         <div className="table-responsive" style={styles.body}>
@@ -51,8 +47,6 @@ export default class ExpenseTable extends React.Component {
           </table>
         </div>
     </Panel>
-  </div>
-  </div>
   </div>
       </div>
         );
