@@ -28,6 +28,8 @@ export default class Expenses extends React.Component {
       }
     );
   }
+
+
   updateCategory(expense,newCategory){
     expense.category = newCategory;
     this.setState(
@@ -42,7 +44,6 @@ export default class Expenses extends React.Component {
 
 render(){
   return (
-
     <ExpenseTable expenses={this.state.expenses} addExpense={this.addExpense.bind(this)} acceptExpense ={this.acceptExpense.bind(this)} updateCategory={this.updateCategory.bind(this)}/>
   );
 }

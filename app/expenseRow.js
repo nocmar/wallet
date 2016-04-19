@@ -20,6 +20,7 @@ export default class ExpenseRow extends React.Component
   }
 
   render(){
+
   var disabled = (this.props.expense.approved);
   var state = this.props.expense.approved ?
      state = "success" : state = "warning";
