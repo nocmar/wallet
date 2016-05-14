@@ -19,7 +19,3 @@ ReactDOM.render(
     </Route>
   </Router>,
 app);
-
-ReactDOM.render(
-  <Router/>,  document.getElementById('app')
-);
