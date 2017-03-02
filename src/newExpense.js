@@ -2,7 +2,7 @@ import React from "react";
 import moment from  "moment";
 import DatePicker from "react-datepicker";
 import {Panel, Accordion, Well, Jumbotron, Button, Tabs, Tab, PageHeader, Input} from 'react-bootstrap';
-import styles from '../css/newExpense-styles';
+import styles from './newExpense-styles';
 import '../node_modules/react-datepicker/dist/react-datepicker.css';
 
 export default class NewExpense extends React.Component {
@@ -91,13 +91,13 @@ export default class NewExpense extends React.Component {
       </div>
         <div className="form-group input-group" style={styles.form}  >
           <label className="control-label">Kategoria</label>
-            <Input type="select" placeholder="Kategoria" value ={this.state.category} onChange={this.handleCategoryChange.bind(this)}>
+            <select placeholder="Kategoria" value ={this.state.category} onChange={this.handleCategoryChange.bind(this)}>
               <option value="Spożywcze">Spożywcze</option>
               <option value="Alkohol">Alkohol</option>
               <option value="Samochód">Samochód</option>
               <option value="Transport">Transport</option>
               <option value="Mieszkanie">Mieszkanie</option>
-            </Input>
+            </select>
         </div>
         <div className="form-group input-group" style={styles.form} >
             <label className="control-label">Opis</label>
@@ -109,10 +109,10 @@ export default class NewExpense extends React.Component {
                                                 </h4>}  eventKey="1">
         <div className="form-group input-group" style={styles.form}  >
           <label className="control-label">Konto</label>
-          <Input type="select" placeholder="Konto">
+          <select placeholder="Konto">
                       <option value="Portfel">Portfel</option>
                       <option value="mbank">Karta mbank</option>
-          </Input>
+          </select>
         </div>
         <div className="form-group input-group" style={styles.form}>
             <label className="control-label">Data transakcji</label>

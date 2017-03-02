@@ -1,8 +1,8 @@
 import React from "react";
-import ExpenseRow from "./expenseRow"
+import ExpenseRow from "./ExpenseRow"
 import NewExpense from "./newExpense"
 import {Pagination, Panel, Well, Button, PageHeader} from "react-bootstrap"
-import styles from '../css/panel-styles'
+import styles from './panel-styles'
 
 export default class ExpenseTable extends React.Component {
   constructor(props){
@@ -31,8 +31,8 @@ export default class ExpenseTable extends React.Component {
     <Panel header={<span>Twoje wydatki</span>} >
         <div className="table-responsive" style={styles.body}>
           <table className="table table-striped">
-            <thead> <tr>
-            <th>Data </th>
+            <thead><tr>
+            <th>Data</th>
             <th>Szczegłoy</th>
             <th>Rodzaj</th>
             <th>Typ</th>
@@ -43,7 +43,8 @@ export default class ExpenseTable extends React.Component {
             <th>Potwierdzenie</th>
             </tr></thead>
             <tbody>
-            {rows}</tbody>
+           {rows}
+            </tbody>
           </table>
         </div>
     </Panel>

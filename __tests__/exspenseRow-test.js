@@ -1,12 +1,12 @@
 "use strict";
 
-jest.unmock('../../app/expenseRow.js');
+jest.unmock('../src/ExpenseRow.js');
 jest.unmock('react-bootstrap');
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import TestUtils from 'react-addons-test-utils';
-import ExpenseRow from '../../app/expenseRow.js';
+import ExpenseRow from '../src/ExpenseRow.js';
 import {Panel, Button, Input, Label, FormControls, Row, Col, PageHeader} from "react-bootstrap"
 
 describe('Expense row', function(){
