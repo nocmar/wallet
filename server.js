@@ -1,10 +1,7 @@
 const express = require('express');
-const fs = require('fs');
-const sqlite = require('sql.js');
+const mongoose = require('mongoose');
 
-const filebuffer = fs.readFileSync('db/usda-nnd.sqlite3');
-
-const db = new sqlite.Database(filebuffer);
+mongoose.connect('mongodb://localhost/wallet')
 
 const app = express();
 
@@ -15,54 +12,25 @@ if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 }
 
-const COLUMNS = [
-  'carbohydrate_g',
-  'protein_g',
-  'fa_sat_g',
-  'fa_mono_g',
-  'fa_poly_g',
-  'kcal',
-  'description',
-];
-app.get('/api/food', (req, res) => {
-  const param = req.query.q;
 
-  if (!param) {
-    res.json({
-      error: 'Missing required parameter `q`',
-    });
-    return;
-  }
+var expenseSchema = {
+    id : Number,
+    ranactionDate: Date,
+    transactionDetails: String,
+    transactionBankType: String,
+    transactionType : String,
+    account: Number,
+    amount: Number,
+    approved: false,
+    category : String,
+    notes : String
+}
 
-  // WARNING: Not for production use! The following statement
-  // is not protected against SQL injections.
-  const r = db.exec(`
-    select ${COLUMNS.join(', ')} from entries
-    where description like '%${param}%'
-    limit 100
-  `);
-
-  if (r[0]) {
-    res.json(
-      r[0].values.map((entry) => {
-        const e = {};
-        COLUMNS.forEach((c, idx) => {
-          // combine fat columns
-          if (c.match(/^fa_/)) {
-            e.fat_g = e.fat_g || 0.0;
-            e.fat_g = (
-              parseFloat(e.fat_g, 10) + parseFloat(entry[idx], 10)
-            ).toFixed(2);
-          } else {
-            e[c] = entry[idx];
-          }
-        });
-        return e;
-      }),
-    );
-  } else {
-    res.json([]);
-  }
+var Expense = mongoose.model('Expense', expenseSchema)
+app.get('/api/expenses', (req, res) => {
+    Expense.find(function(err,doc){
+      res.send(doc);
+    })
 });
 
 app.listen(app.get('port'), () => {
