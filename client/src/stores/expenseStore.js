@@ -1,5 +1,6 @@
 import EventEmitter from "events";
 import Dispatcher from "../dispatcher";
+import {checkStatus, parseJSON} from '../lib/Helpers'
 
 class ExpenseStore extends EventEmitter {
   constructor() {
@@ -49,8 +50,13 @@ class ExpenseStore extends EventEmitter {
     this.emit("change");
   }
 
-  getAll() {
-    return this.expenses;
+  getAll(cb) {
+     return fetch(`api/expenses`, {
+    accept: 'application/json',  })
+    .then(checkStatus)
+    .then(parseJSON)
+    .then(cb);
+
   }
 
   handleAction(action){

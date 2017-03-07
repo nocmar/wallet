@@ -5,20 +5,24 @@ import * as ExpenseActions from "./actions/expenseActions";
 export default class Expenses extends React.Component {
   constructor(){
       super();
-      var expenses =  ExpenseStore.getAll();
-
-      this.state = {
-        expenses : expenses,
-      };
-
-
+       this.state = {
+          expenses : [],
+        };
+      ExpenseStore.getAll((values)=>{
+      this.setState( {
+          expenses : values,
+        });
+        //this.forceUpdate()
+      });
   }
   componentWillMount(){
     ExpenseStore.on("change",()=> {
-      this.setState({
-        expenses: ExpenseStore.getAll(),
-      })
-    })
+     ExpenseStore.getAll((values)=>{
+        this.state = {
+          expenses : values,
+        };
+      }); 
+       })
   }
   acceptExpense(expense) {
     expense.approved = true;
