@@ -22,7 +22,7 @@ if (process.env.NODE_ENV === 'production') {
 
 
 var expenseSchema = {
-    _id : Number,
+    id : Number,
     tranactionDate: Date,
     transactionDetails: String,
     transactionBankType: String,
@@ -44,6 +44,7 @@ app.get('/api/expenses', (req, res) => {
 
 app.post('/api/expenses', jsonParser,(req,res)=>{
     var expense = new Expense({
+        id:42,
         tranactionDate: req.body.tranactionDate,
         transactionDetails: req.body.transactionDetails,
         transactionBankType: req.body.transactionBankType,

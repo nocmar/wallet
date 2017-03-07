@@ -8,6 +8,7 @@ class ExpenseStore extends EventEmitter {
    }
 
   createExpense(expense) {
+    var that = this;
       return fetch(`api/expenses`, {
       method: 'POST',
       headers: {
@@ -16,8 +17,9 @@ class ExpenseStore extends EventEmitter {
       },
       body: JSON.stringify(expense)
   }).then(res => res.json())
+  .then(that.emit("change"))
 //    this.expenses.push(expense);
-    this.emit("change");
+   // this.emit("change");
   }
 
   getAll(cb) {

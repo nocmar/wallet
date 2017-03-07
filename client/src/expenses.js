@@ -17,9 +17,9 @@ export default class Expenses extends React.Component {
   componentWillMount(){
     ExpenseStore.on("change",()=> {
      ExpenseStore.getAll((values)=>{
-        this.state = {
+         this.setState( {
           expenses : values,
-        };
+        });
       }); 
        })
   }
