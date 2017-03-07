@@ -1,9 +1,16 @@
 const express = require('express');
 const mongoose = require('mongoose');
+var bodyParser = require('body-parser')
 
 mongoose.connect('mongodb://localhost/wallet')
 
 const app = express();
+
+// create application/json parser 
+var jsonParser = bodyParser.json()
+ 
+// create application/x-www-form-urlencoded parser 
+var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
 app.set('port', (process.env.PORT || 3001));
 
@@ -13,9 +20,10 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 
+
 var expenseSchema = {
-    id : Number,
-    ranactionDate: Date,
+    _id : Number,
+    tranactionDate: Date,
     transactionDetails: String,
     transactionBankType: String,
     transactionType : String,
@@ -27,10 +35,34 @@ var expenseSchema = {
 }
 
 var Expense = mongoose.model('Expense', expenseSchema)
+
 app.get('/api/expenses', (req, res) => {
     Expense.find(function(err,doc){
       res.send(doc);
     })
+});
+
+app.post('/api/expenses', jsonParser,(req,res)=>{
+    var expense = new Expense({
+        tranactionDate: req.body.tranactionDate,
+        transactionDetails: req.body.transactionDetails,
+        transactionBankType: req.body.transactionBankType,
+        transactionType : req.body.transactionType,
+        account: req.body.tranactaccountionDate,
+        amount: req.body.amount,
+        approved: req.body.approved,
+        category : req.body.category,
+        notes : req.body.notes
+    });
+
+    expense.save(function(err) {
+        if (err){
+         console.log(err);
+           throw err;
+        }
+        else 
+           console.log('save user successfully...');
+    });
 });
 
 app.listen(app.get('port'), () => {

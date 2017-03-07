@@ -12,7 +12,6 @@ export default class Expenses extends React.Component {
       this.setState( {
           expenses : values,
         });
-        //this.forceUpdate()
       });
   }
   componentWillMount(){
