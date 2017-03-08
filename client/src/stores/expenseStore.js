@@ -23,21 +23,11 @@ class ExpenseStore extends EventEmitter {
 
   updateCategory(expense,newCategory){
     expense.category = newCategory;
-  this.saveExpense(expense);
+    this.saveExpense(expense);
   }
   approveExpense(expense){
     expense.approved = true;
-console.log("save expense");
-    var that = this;
-      return fetch(`api/expensesUpdate`, {
-      method: 'POST',
-      headers: {
-      'Accept': 'application/json',
-      'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(expense)
-  }).then(res => res.json())
-  .then(that.emit("change"))
+    this.saveExpense(expense);
   }
 
   getAll(cb) {

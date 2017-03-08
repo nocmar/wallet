@@ -40,45 +40,33 @@ app.get('/api/expenses', (req, res) => {
     })
 });
 
-app.post('/api/expensesUpdate', jsonParser,(req,res)=>{
-  console.log("update expense");
-
-Expense.findById(req.body._id, function (err, expense) {  
-    
-    if (err) {
-        res.status(500).send(err);
-    } else {
-        expense.tranactionDate = req.body.tranactionDate;
-        expense.transactionDetails = req.body.transactionDetails;
-        expense.transactionBankType = req.body.transactionBankType;
-        expense.transactionType = req.body.transactionType;
-        expense.account = req.body.account;
-        expense.amount = req.body.amount;
-        expense.approved = req.body.approved;
-        expense.category = req.body.category;
-        expense.notes = req.body.notes;
-        
-        expense.save(function (err, expense) {
-            if (err) {
-                res.status(500).send(err)
-            }
-            res.send(expense);
-        });
-    }
-
-      // var query = {'id':req.body.id};
-      // Expense.findOneAndUpdate(query, expense, {upsert:true}, function(err, doc){
-      //     if (err) 
-      //     {
-      //       console.log(err);
-      //       return res.status(500).send({ error: err });
-      //     }
-      //     return res.send("succesfully saved");
-      // });
-});
-});
 app.post('/api/expenses', jsonParser,(req,res)=>{
-    var expense = new Expense({
+  if(req.body._id){
+    Expense.findById(req.body._id, function (err, expense) {  
+      if (err) {
+          res.status(500).send(err);
+      } else {
+          expense.tranactionDate = req.body.tranactionDate;
+          expense.transactionDetails = req.body.transactionDetails;
+          expense.transactionBankType = req.body.transactionBankType;
+          expense.transactionType = req.body.transactionType;
+          expense.account = req.body.account;
+          expense.amount = req.body.amount;
+          expense.approved = req.body.approved;
+          expense.category = req.body.category;
+          expense.notes = req.body.notes;
+          
+          expense.save(function (err, expense) {
+              if (err) {
+                  res.status(500).send(err)
+              }
+              res.send(expense);
+          });
+      }
+  });
+}
+else{
+      var expense = new Expense({
         id:req.body.id,
         tranactionDate: req.body.tranactionDate,
         transactionDetails: req.body.transactionDetails,
@@ -99,6 +87,7 @@ app.post('/api/expenses', jsonParser,(req,res)=>{
         else 
            console.log('save expense successfully...');
     });
+}
 });
 
 app.listen(app.get('port'), () => {
