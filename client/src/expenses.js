@@ -24,22 +24,13 @@ export default class Expenses extends React.Component {
        })
   }
   acceptExpense(expense) {
-    expense.approved = true;
-    this.setState(
-      {
-        expenses : this.state.expenses
-      }
-    );
+    ExpenseActions.approveExpense(expense);
   }
 
 
   updateCategory(expense,newCategory){
-    expense.category = newCategory;
-    this.setState(
-      {                                                          
-      expenses : this.state.expenses
-       }
-  );
+    ExpenseActions.updateExpenseCategory(expense,newCategory);
+
  }
   addExpense(expense){
     ExpenseActions.createExpense(expense);

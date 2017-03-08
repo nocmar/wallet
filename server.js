@@ -1,13 +1,13 @@
 const express = require('express');
 const mongoose = require('mongoose');
-var bodyParser = require('body-parser')
+const bodyParser = require('body-parser')
 
 mongoose.connect('mongodb://localhost/wallet')
 
 const app = express();
 
 // create application/json parser 
-var jsonParser = bodyParser.json()
+const jsonParser = bodyParser.json()
  
 // create application/x-www-form-urlencoded parser 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
@@ -18,8 +18,6 @@ app.set('port', (process.env.PORT || 3001));
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('client/build'));
 }
-
-
 
 var expenseSchema = {
     id : Number,
@@ -42,14 +40,51 @@ app.get('/api/expenses', (req, res) => {
     })
 });
 
+app.post('/api/expensesUpdate', jsonParser,(req,res)=>{
+  console.log("update expense");
+
+Expense.findById(req.body._id, function (err, expense) {  
+    
+    if (err) {
+        res.status(500).send(err);
+    } else {
+        expense.tranactionDate = req.body.tranactionDate;
+        expense.transactionDetails = req.body.transactionDetails;
+        expense.transactionBankType = req.body.transactionBankType;
+        expense.transactionType = req.body.transactionType;
+        expense.account = req.body.account;
+        expense.amount = req.body.amount;
+        expense.approved = req.body.approved;
+        expense.category = req.body.category;
+        expense.notes = req.body.notes;
+        
+        expense.save(function (err, expense) {
+            if (err) {
+                res.status(500).send(err)
+            }
+            res.send(expense);
+        });
+    }
+
+      // var query = {'id':req.body.id};
+      // Expense.findOneAndUpdate(query, expense, {upsert:true}, function(err, doc){
+      //     if (err) 
+      //     {
+      //       console.log(err);
+      //       return res.status(500).send({ error: err });
+      //     }
+      //     return res.send("succesfully saved");
+      // });
+});
+});
 app.post('/api/expenses', jsonParser,(req,res)=>{
     var expense = new Expense({
-        id:42,
+        id:req.body.id,
         tranactionDate: req.body.tranactionDate,
         transactionDetails: req.body.transactionDetails,
         transactionBankType: req.body.transactionBankType,
         transactionType : req.body.transactionType,
-        account: req.body.tranactaccountionDate,
+        account: req.body.account,
         amount: req.body.amount,
         approved: req.body.approved,
         category : req.body.category,
@@ -62,10 +97,10 @@ app.post('/api/expenses', jsonParser,(req,res)=>{
            throw err;
         }
         else 
-           console.log('save user successfully...');
+           console.log('save expense successfully...');
     });
 });
 
 app.listen(app.get('port'), () => {
-  console.log(`Find the server at: http://localhost:${app.get('port')}/`); // eslint-disable-line no-console
+  console.log(`Find the server at: http://localhost:${app.get('port')}/`); 
 });

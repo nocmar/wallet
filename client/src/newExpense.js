@@ -52,8 +52,8 @@ export default class NewExpense extends React.Component {
        "transactionBankType": "Przelew",
        "transactionType" : "Obciażenie",
        "account": "",
-       "amount": 3,
-       "approved": true,
+       "amount": this.state.amount,
+       "approved": false,
        "category" : this.state.category,
        "notes" : this.state.notes
      }

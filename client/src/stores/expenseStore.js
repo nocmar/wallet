@@ -7,7 +7,8 @@ class ExpenseStore extends EventEmitter {
     super()
    }
 
-  createExpense(expense) {
+  saveExpense(expense) {
+    console.log("save expense");
     var that = this;
       return fetch(`api/expenses`, {
       method: 'POST',
@@ -18,8 +19,25 @@ class ExpenseStore extends EventEmitter {
       body: JSON.stringify(expense)
   }).then(res => res.json())
   .then(that.emit("change"))
-//    this.expenses.push(expense);
-   // this.emit("change");
+  }
+
+  updateCategory(expense,newCategory){
+    expense.category = newCategory;
+  this.saveExpense(expense);
+  }
+  approveExpense(expense){
+    expense.approved = true;
+console.log("save expense");
+    var that = this;
+      return fetch(`api/expensesUpdate`, {
+      method: 'POST',
+      headers: {
+      'Accept': 'application/json',
+      'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(expense)
+  }).then(res => res.json())
+  .then(that.emit("change"))
   }
 
   getAll(cb) {
@@ -35,7 +53,13 @@ class ExpenseStore extends EventEmitter {
     console.log("Action", action);
     switch(action.type){
       case "CREATE_EXPENSE":{
-        this.createExpense(action.expense);
+        this.saveExpense(action.expense);
+      }
+      case "UPDATE_EXPENSE_CATEGORY":{
+        this.updateCategory(action.expense, action.newCategory);
+      }
+      case "APPROVE_EXPENSE":{
+        this.approveExpense(action.expense);
       }
     }
   }
