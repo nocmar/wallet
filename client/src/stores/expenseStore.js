@@ -44,12 +44,15 @@ class ExpenseStore extends EventEmitter {
     switch(action.type){
       case "CREATE_EXPENSE":{
         this.saveExpense(action.expense);
+        break;
       }
       case "UPDATE_EXPENSE_CATEGORY":{
         this.updateCategory(action.expense, action.newCategory);
+        break;
       }
       case "APPROVE_EXPENSE":{
         this.approveExpense(action.expense);
+        break;
       }
     }
   }
