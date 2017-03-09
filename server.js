@@ -40,9 +40,8 @@ app.get('/api/expenses', (req, res) => {
     })
 });
 
-app.post('/api/expenses', jsonParser,(req,res)=>{
-  if(req.body._id){
-    Expense.findById(req.body._id, function (err, expense) {  
+app.put('/api/expenses', jsonParser,(req,res)=>{
+ Expense.findById(req.body._id, function (err, expense) {  
       if (err) {
           res.status(500).send(err);
       } else {
@@ -64,8 +63,8 @@ app.post('/api/expenses', jsonParser,(req,res)=>{
           });
       }
   });
-}
-else{
+});
+app.post('/api/expenses', jsonParser,(req,res)=>{
       var expense = new Expense({
         id:req.body.id,
         tranactionDate: req.body.tranactionDate,
@@ -87,7 +86,6 @@ else{
         else 
            console.log('save expense successfully...');
     });
-}
 });
 
 app.listen(app.get('port'), () => {
