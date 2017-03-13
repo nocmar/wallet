@@ -51,7 +51,6 @@ class ExpenseStore extends EventEmitter {
     .then(checkStatus)
     .then(parseJSON)
     .then(cb);
-
   }
 
   handleAction(action){
