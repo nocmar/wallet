@@ -26,17 +26,17 @@ export default function reducer(state={
           expenses: [...state.expenses, action.payload],
         }
       }
-    //   case "UPDATE_TWEET": {
-    //     const { id, text } = action.payload
-    //     const newTweets = [...state.tweets]
-    //     const tweetToUpdate = newTweets.findIndex(tweet => tweet.id === id)
-    //     newTweets[tweetToUpdate] = action.payload;
+      case "APPROVED_EXPENSE": {
+        const { id } = action.payload
+        const newExpenses = [...state.expenses]
+        const expensetToUpdate = newExpenses.findIndex(expense => expense.id === id)
+        newExpenses[expensetToUpdate].approved = true
 
-    //     return {
-    //       ...state,
-    //       tweets: newTweets,
-    //     }
-    //   }
+        return {
+          ...state,
+          expenses: newExpenses,
+        }
+      }
     //   case "DELETE_TWEET": {
     //     return {
     //       ...state,

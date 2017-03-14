@@ -41,19 +41,20 @@ app.get('/api/expenses', (req, res) => {
 });
 
 app.put('/api/expenses', jsonParser,(req,res)=>{
- Expense.findById(req.body._id, function (err, expense) {  
+  Expense.findById(req.body.expense._id, function (err, expense) {  
       if (err) {
           res.status(500).send(err);
       } else {
-          expense.tranactionDate = req.body.tranactionDate;
-          expense.transactionDetails = req.body.transactionDetails;
-          expense.transactionBankType = req.body.transactionBankType;
-          expense.transactionType = req.body.transactionType;
-          expense.account = req.body.account;
-          expense.amount = req.body.amount;
-          expense.approved = req.body.approved;
-          expense.category = req.body.category;
-          expense.notes = req.body.notes;
+        var item = req.body.expense;
+          expense.tranactionDate = item.tranactionDate;
+          expense.transactionDetails = item.transactionDetails;
+          expense.transactionBankType = item.transactionBankType;
+          expense.transactionType = item.transactionType;
+          expense.account = item.account;
+          expense.amount = item.amount;
+          expense.approved = item.approved;
+          expense.category = item.category;
+          expense.notes = item.notes;
           
           expense.save(function (err, expense) {
               if (err) {

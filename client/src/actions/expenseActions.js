@@ -19,6 +19,8 @@ export function addExpense(expense){
 }
 
 export function updateExpenseCategory(expense,newCategory){
+   expense.category = newCategory;
+    this.updateExpense(expense);
   // dispatcher.dispatch({
   //   type: "UPDATE_EXPENSE_CATEGORY",
   //   expense,newCategory,
@@ -26,6 +28,18 @@ export function updateExpenseCategory(expense,newCategory){
 }
 
 export function approveExpense(expense){
+    expense.approved = true;
+     return function(dispatch) {
+  axios.put('/api/expenses', {
+    expense: JSON.stringify(expense)
+  })
+     .then((response) => {
+        dispatch({type: "APPROVED_EXPENSE", payload: expense.id})
+      })
+      .catch((err) => {
+        dispatch({type: "APPROVED_EXPENSE_ERROR", payload: err})
+      })
+     }
   // dispatcher.dispatch({
   //   type: "APPROVE_EXPENSE",
   //   expense,

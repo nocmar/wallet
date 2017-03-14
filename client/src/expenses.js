@@ -1,7 +1,7 @@
 import React from "react";
 import ExpenseTable from "./expenseTable";
 import ExpenseStore from "./stores/expenseStore";
-import {fetchExpenses} from "./actions/expenseActions";
+import {fetchExpenses,approveExpense} from "./actions/expenseActions";
 
 export default class Expenses extends React.Component {
   componentWillMount(){
@@ -10,7 +10,8 @@ export default class Expenses extends React.Component {
     store.subscribe(() => this.forceUpdate());
   }
   acceptExpense(expense) {
-    //ExpenseActions.approveExpense(expense);
+    const { store } = this.props;
+    store.dispatch(approveExpense(expense));
   }
 
  updateCategory(expense,newCategory){
