@@ -20,7 +20,7 @@ export default function reducer(state={
           expenses: action.payload,
         }
       }
-      case "ADD_EXPENSE": {
+      case "ADD_EXPENSE_SUCCESS": {
         return {
           ...state,
           expenses: [...state.expenses, action.payload],

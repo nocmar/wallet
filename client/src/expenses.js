@@ -1,10 +1,10 @@
 import React from "react";
 import ExpenseTable from "./expenseTable";
 import ExpenseStore from "./stores/expenseStore";
-import {fetchExpenses,approveExpense,updateExpenseCategory} from "./actions/expenseActions";
+import { fetchExpenses, approveExpense, updateExpenseCategory, addExpense } from "./actions/expenseActions";
 
 export default class Expenses extends React.Component {
-  componentWillMount(){
+  componentWillMount() {
     const { store } = this.props;
     store.dispatch(fetchExpenses())
     store.subscribe(() => this.forceUpdate());
@@ -14,24 +14,23 @@ export default class Expenses extends React.Component {
     store.dispatch(approveExpense(expense));
   }
 
- updateCategory(expense,newCategory){
+  updateCategory(expense, newCategory) {
     const { store } = this.props;
-    store.dispatch(updateExpenseCategory(expense,newCategory));
-    //ExpenseActions.updateExpenseCategory(expense,newCategory);
+    store.dispatch(updateExpenseCategory(expense, newCategory));
+  }
+  addExpense(expense) {
+    const { store } = this.props;
+    store.dispatch(addExpense(expense));
+  }
 
- }
-  addExpense(expense){
-    //ExpenseActions.createExpense(expense);
-}
+  render() {
+    const props = this.props;
+    const { store } = props;
+    const state = store.getState();
 
-render(){
-   const props = this.props;
-   const { store } = props;
-   const state = store.getState();
-
-  const {expenses} = state.expenses;
-  return (
-    <ExpenseTable expenses={expenses} addExpense={this.addExpense.bind(this)} acceptExpense ={this.acceptExpense.bind(this)} updateCategory={this.updateCategory.bind(this)}/>
-  );
-}
+    const {expenses} = state.expenses;
+    return (
+      <ExpenseTable expenses={expenses} addExpense={this.addExpense.bind(this)} acceptExpense={this.acceptExpense.bind(this)} updateCategory={this.updateCategory.bind(this)} />
+    );
+  }
 }
