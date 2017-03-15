@@ -29,10 +29,14 @@ export function updateExpenseCategory(expense,newCategory){
 
 export function approveExpense(expense){
     expense.approved = true;
+    var data = JSON.stringify(expense);
+  
      return function(dispatch) {
-  axios.put('/api/expenses', {
-    expense: JSON.stringify(expense)
-  })
+  axios.put('/api/expenses', data, {
+    headers: {
+        'Content-Type': 'application/json',
+         'Accept': 'application/json'
+    }})
      .then((response) => {
         dispatch({type: "APPROVED_EXPENSE", payload: expense.id})
       })
