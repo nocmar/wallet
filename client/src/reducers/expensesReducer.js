@@ -26,11 +26,11 @@ export default function reducer(state={
           expenses: [...state.expenses, action.payload],
         }
       }
-      case "APPROVED_EXPENSE": {
-        const { id } = action.payload
+      case "UPDATE_EXPENSE": {
+        const newExpense = action.payload
         const newExpenses = [...state.expenses]
-        const expensetToUpdate = newExpenses.findIndex(expense => expense.id === id)
-        newExpenses[expensetToUpdate].approved = true
+        const expensetToUpdate = newExpenses.findIndex(expense => expense.id === newExpense.id)
+        newExpenses[expensetToUpdate] = newExpense
 
         return {
           ...state,

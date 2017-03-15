@@ -17,35 +17,39 @@ export function addExpense(expense){
   //   expense,
   // });
 }
-
 export function updateExpenseCategory(expense,newCategory){
    expense.category = newCategory;
-    this.updateExpense(expense);
-  // dispatcher.dispatch({
-  //   type: "UPDATE_EXPENSE_CATEGORY",
-  //   expense,newCategory,
-  // });
-}
-
-export function approveExpense(expense){
-    expense.approved = true;
     var data = JSON.stringify(expense);
-  
-     return function(dispatch) {
-  axios.put('/api/expenses', data, {
+  return function(dispatch) {
+      axios.put('/api/expenses', data, {
     headers: {
         'Content-Type': 'application/json',
          'Accept': 'application/json'
     }})
      .then((response) => {
-        dispatch({type: "APPROVED_EXPENSE", payload: expense.id})
+        dispatch({type: "UPDATE_EXPENSE", payload: expense})
       })
       .catch((err) => {
-        dispatch({type: "APPROVED_EXPENSE_ERROR", payload: err})
+        dispatch({type: "UPDATE_EXPENSE_ERROR", payload: err})
       })
      }
-  // dispatcher.dispatch({
-  //   type: "APPROVE_EXPENSE",
-  //   expense,
-  // });
+  
+}
+
+export function approveExpense(expense){
+    expense.approved = true;
+     var data = JSON.stringify(expense);
+  return function(dispatch) {
+      axios.put('/api/expenses', data, {
+    headers: {
+        'Content-Type': 'application/json',
+         'Accept': 'application/json'
+    }})
+     .then((response) => {
+        dispatch({type: "UPDATE_EXPENSE", payload: expense})
+      })
+      .catch((err) => {
+        dispatch({type: "UPDATE_EXPENSE_ERROR", payload: err})
+      })
+     }
 }
