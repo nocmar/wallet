@@ -37,10 +37,10 @@ export default function reducer(state={
           expenses: newExpenses,
         }
       }
-    //   case "DELETE_TWEET": {
+    //   case "DELETE_EXPENSE": {
     //     return {
     //       ...state,
-    //       tweets: state.tweets.filter(tweet => tweet.id !== action.payload),
+    //       expenses: state.expenses.filter(expense => expense.id !== action.payload),
     //     }
     //   }
     }

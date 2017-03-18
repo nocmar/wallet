@@ -1,6 +1,5 @@
 import React from "react";
 import ExpenseTable from "./expenseTable";
-import ExpenseStore from "./stores/expenseStore";
 import { fetchExpenses, approveExpense, updateExpenseCategory, addExpense } from "./actions/expenseActions";
 
 export default class Expenses extends React.Component {
