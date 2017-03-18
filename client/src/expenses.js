@@ -1,6 +1,6 @@
 import React from "react";
 import ExpenseTable from "./expenseTable";
-import { fetchExpenses, approveExpense, updateExpenseCategory, addExpense } from "./actions/expenseActions";
+import { fetchExpenses, approveExpense, updateExpenseCategory, addExpense,deleteExpense } from "./actions/expenseActions";
 
 export default class Expenses extends React.Component {
   componentWillMount() {
@@ -21,7 +21,10 @@ export default class Expenses extends React.Component {
     const { store } = this.props;
     store.dispatch(addExpense(expense));
   }
-
+  deleteExpense(expense){
+    const { store } = this.props;
+    store.dispatch(deleteExpense(expense));
+  }
   render() {
     const props = this.props;
     const { store } = props;
@@ -29,7 +32,12 @@ export default class Expenses extends React.Component {
 
     const {expenses} = state.expenses;
     return (
-      <ExpenseTable expenses={expenses} addExpense={this.addExpense.bind(this)} acceptExpense={this.acceptExpense.bind(this)} updateCategory={this.updateCategory.bind(this)} />
+      <ExpenseTable expenses={expenses} 
+            addExpense={this.addExpense.bind(this)} 
+            acceptExpense={this.acceptExpense.bind(this)} 
+            updateCategory={this.updateCategory.bind(this)} 
+            deleteExpense={this.deleteExpense.bind(this)}
+            />
     );
   }
 }

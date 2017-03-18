@@ -27,6 +27,24 @@ export function addExpense(expense){
       })
      }
 }
+
+export function deleteExpense(expense){
+  //  var data = JSON.stringify(expense);
+  // return function(dispatch) {
+  //     axios.post('/api/expenses', data, {
+  //   headers: {
+  //       'Content-Type': 'application/json',
+  //        'Accept': 'application/json'
+  //   }})
+  //    .then((response) => {
+  //       dispatch({type: "ADD_EXPENSE_SUCCESS", payload: expense})
+  //     })
+  //     .catch((err) => {
+  //       dispatch({type: "ADD_EXPENSE_ERROR", payload: err})
+  //     })
+  //    }
+}
+
 export function updateExpenseCategory(expense,newCategory){
    expense.category = newCategory;
     var data = JSON.stringify(expense);
