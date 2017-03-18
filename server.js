@@ -8,7 +8,7 @@ const app = express();
 
 // create application/json parser 
 const jsonParser = bodyParser.json()
- 
+
 // create application/x-www-form-urlencoded parser 
 var urlencodedParser = bodyParser.urlencoded({ extended: false })
 
@@ -41,11 +41,13 @@ app.get('/api/expenses', (req, res) => {
 });
 
 app.put('/api/expenses', jsonParser,(req,res)=>{
-  Expense.findById(req.body.expense._id, function (err, expense) {  
+    console.log(req.body);
+        console.log(req.body._id);
+  Expense.findById(req.body._id, function (err, expense) {  
       if (err) {
           res.status(500).send(err);
       } else {
-        var item = req.body.expense;
+        var item = req.body;
           expense.tranactionDate = item.tranactionDate;
           expense.transactionDetails = item.transactionDetails;
           expense.transactionBankType = item.transactionBankType;
@@ -80,13 +82,11 @@ app.post('/api/expenses', jsonParser,(req,res)=>{
     });
 
     expense.save(function(err) {
-        if (err){
-         console.log(err);
-           throw err;
-        }
-        else 
-           console.log('save expense successfully...');
-    });
+       if (err) {
+                  res.status(500).send(err)
+              }
+              res.send(expense);
+          });
 });
 
 app.listen(app.get('port'), () => {
