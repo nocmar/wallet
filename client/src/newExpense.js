@@ -18,28 +18,21 @@ export default class NewExpense extends React.Component {
       category : ""
     };
 }
+handleInputChange(event){
+    const target = event.target;
+    const value = target.value;
+    const name = target.name;
+
+    this.setState({
+      [name]: value
+    });
+}
+
  handleDateChange(date) {
    //alert(event.target.value);
    alert (typeof(date));
    //this.setState({date: date.toDate()});
  }
-
- handleDetailsChange(event) {
-    this.setState({details: event.target.value});
- }
-
- handleAmountChange(event) {
-     this.setState({amount: event.target.value});
- }
-
- handleNotesChange(event) {
-      this.setState({notes: event.target.value});
- }
-
- handleCategoryChange(event) {
-      this.setState({category: event.target.value});
- }
-
  handleAddNewClick(event){
     this.setState({showButton : false})
  }
@@ -87,11 +80,11 @@ export default class NewExpense extends React.Component {
       <Accordion>
       <div className="form-group input-group">
           <span className="input-group-addon">$</span>
-          <input type="text" className="form-control" onChange={this.handleAmountChange.bind(this)} value ={this.state.amount} placeholder="Kwota"/>
+          <input type="text" className="form-control" name="amount" onChange={this.handleInputChange.bind(this)} value ={this.state.amount} placeholder="Kwota"/>
       </div>
         <div className="form-group input-group" style={styles.form}  >
           <label className="control-label">Kategoria</label>
-            <select placeholder="Kategoria" value ={this.state.category} onChange={this.handleCategoryChange.bind(this)}>
+            <select placeholder="Kategoria" value ={this.state.category} name= "category" onChange={this.handleInputChange.bind(this)}>
               <option value="Spożywcze">Spożywcze</option>
               <option value="Alkohol">Alkohol</option>
               <option value="Samochód">Samochód</option>
@@ -101,7 +94,7 @@ export default class NewExpense extends React.Component {
         </div>
         <div className="form-group input-group" style={styles.form} >
             <label className="control-label">Opis</label>
-            <input type="text" className="form-control" onChange={this.handleDetailsChange.bind(this)} value ={this.state.details}/>
+            <input type="text" className="form-control" name="details" onChange={this.handleInputChange.bind(this)} value ={this.state.details}/>
 
         </div>
      <Panel header={<h4 className="panel-title">
@@ -121,7 +114,7 @@ export default class NewExpense extends React.Component {
         </div>
               <div className="form-group input-group" style={styles.form}  >
                   <label className="control-label">Notatki</label>
-              <input type="text" className="form-control" onChange={this.handleNotesChange.bind(this)} value ={this.state.notes}/>
+              <input type="text" className="form-control" name ="notes" onChange={this.handleInputChange.bind(this)} value ={this.state.notes}/>
         </div>
                  </Panel>
                </Accordion>
