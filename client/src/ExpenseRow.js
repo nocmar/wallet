@@ -24,10 +24,10 @@ class ExpenseRow extends React.Component {
   render() {
 
     var disabled = (this.props.expense.approved);
-    var state = this.props.expense.approved ? state = "success" : state = "warning";
+    var expenseState = this.props.expense.approved ? "success" : "warning";
 
     return (
-      <tr className={state}>
+      <tr className={expenseState}>
         <td style={{ width: "10%" }}>{this.props.expense.tranactionDate}</td>
         <td style={{ width: "20%" }}>{this.props.expense.transactionDetails}</td>
         <td className="transactionType">{this.props.expense.transactionBankType}</td>
