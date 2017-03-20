@@ -1,15 +1,10 @@
 import React from "react";
 import ExpenseRow from "./ExpenseRow"
 import NewExpense from "./newExpense"
-import { Pagination, Panel, Well, Button, PageHeader } from "react-bootstrap"
+import {Panel } from "react-bootstrap"
 import styles from './styles/panel-styles'
 
 export default class ExpenseTable extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-
   render() {
     let rows = [];
     this.props.expenses.forEach(function (expense) {

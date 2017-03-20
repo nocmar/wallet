@@ -1,6 +1,4 @@
 import React from "react";
-import { Panel, Button, Input, Label, FormControls, Row, Col, PageHeader } from "react-bootstrap";
-
 
 class ExpenseRow extends React.Component {
   constructor(props) {

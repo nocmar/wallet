@@ -1,7 +1,7 @@
 import React from "react";
 import moment from "moment";
 import DatePicker from "react-datepicker";
-import { Panel, Accordion, Well, Jumbotron, Button, Tabs, Tab, PageHeader, Input } from 'react-bootstrap';
+import { Panel, Accordion } from 'react-bootstrap';
 import styles from './styles/newExpense-styles';
 import '../node_modules/react-datepicker/dist/react-datepicker.css';
 

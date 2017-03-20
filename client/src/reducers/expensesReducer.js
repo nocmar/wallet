@@ -43,7 +43,8 @@ export default function reducer(state={
           expenses: state.expenses.filter(expense => expense.id !== action.payload),
         }
       }
+      default:{
+        return state
+      }
     }
-
-    return state
 }
