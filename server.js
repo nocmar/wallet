@@ -16,79 +16,85 @@ app.set('port', (process.env.PORT || 3001));
 
 // Express only serves static assets in production
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('client/build'));
+    app.use(express.static('client/build'));
 }
 
 var expenseSchema = {
-    id : Number,
+    id: Number,
     tranactionDate: Date,
     transactionDetails: String,
     transactionBankType: String,
-    transactionType : String,
+    transactionType: String,
     account: Number,
     amount: Number,
     approved: false,
-    category : String,
-    notes : String
+    category: String,
+    notes: String
 }
 
 var Expense = mongoose.model('Expense', expenseSchema)
 
 app.get('/api/expenses', (req, res) => {
-    Expense.find(function(err,doc){
-      res.send(doc);
+    Expense.find(function (err, doc) {
+        res.send(doc);
     })
 });
 
-app.put('/api/expenses', jsonParser,(req,res)=>{
-    console.log(req.body);
-        console.log(req.body._id);
-  Expense.findById(req.body._id, function (err, expense) {  
-      if (err) {
-          res.status(500).send(err);
-      } else {
-        var item = req.body;
-          expense.tranactionDate = item.tranactionDate;
-          expense.transactionDetails = item.transactionDetails;
-          expense.transactionBankType = item.transactionBankType;
-          expense.transactionType = item.transactionType;
-          expense.account = item.account;
-          expense.amount = item.amount;
-          expense.approved = item.approved;
-          expense.category = item.category;
-          expense.notes = item.notes;
-          
-          expense.save(function (err, expense) {
-              if (err) {
-                  res.status(500).send(err)
-              }
-              res.send(expense);
-          });
-      }
-  });
+app.delete('/api/expenses', jsonParser, (req, res) => {
+   Expense.findByIdAndRemove(req.body._id, function (err, expense) {
+        if (err){
+            res.send(err);
+        }
+        res.json({ message: 'Successfully deleted' });
+    });
 });
-app.post('/api/expenses', jsonParser,(req,res)=>{
-      var expense = new Expense({
-        id:req.body.id,
+app.put('/api/expenses', jsonParser, (req, res) => {
+    Expense.findById(req.body._id, function (err, expense) {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            var item = req.body;
+            expense.tranactionDate = item.tranactionDate;
+            expense.transactionDetails = item.transactionDetails;
+            expense.transactionBankType = item.transactionBankType;
+            expense.transactionType = item.transactionType;
+            expense.account = item.account;
+            expense.amount = item.amount;
+            expense.approved = item.approved;
+            expense.category = item.category;
+            expense.notes = item.notes;
+
+            expense.save(function (err, expense) {
+                if (err) {
+                    res.status(500).send(err)
+                }
+                res.send(expense);
+            });
+        }
+    });
+});
+app.post('/api/expenses', jsonParser, (req, res) => {
+    var expense = new Expense({
+        id: req.body.id,
         tranactionDate: req.body.tranactionDate,
         transactionDetails: req.body.transactionDetails,
         transactionBankType: req.body.transactionBankType,
-        transactionType : req.body.transactionType,
+        transactionType: req.body.transactionType,
         account: req.body.account,
         amount: req.body.amount,
         approved: req.body.approved,
-        category : req.body.category,
-        notes : req.body.notes
+        category: req.body.category,
+        notes: req.body.notes
     });
 
-    expense.save(function(err) {
-       if (err) {
-                  res.status(500).send(err)
-              }
-              res.send(expense);
-          });
+    expense.save(function (err) {
+        if (err) {
+            res.status(500).send(err)
+        }
+        res.send(expense);
+    });
 });
 
 app.listen(app.get('port'), () => {
-  console.log(`Find the server at: http://localhost:${app.get('port')}/`); 
+    console.log(`Find the server at: http://localhost:${app.get('port')}/`);
 });

@@ -8,13 +8,14 @@ class ExpenseRow extends React.Component {
 
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
+    this.handleDelete = this.handleDelete.bind(this);
   }
 
   handleClick(e) {
     this.props.acceptExpense(this.props.expense);
   }
 
-  hendleDelete(){
+  handleDelete(){
     this.props.deleteExpense(this.props.expense);
   }
 
