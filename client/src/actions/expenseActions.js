@@ -29,13 +29,8 @@ export function addExpense(expense){
 }
 
 export function deleteExpense(expense){
-   var data = JSON.stringify(expense);
   return function(dispatch) {
-      axios.delete('/api/expenses', data, {
-    headers: {
-        'Content-Type': 'application/json',
-         'Accept': 'application/json'
-    }})
+      axios.delete('/api/expenses/'+expense._id)
      .then((response) => {
         dispatch({type: "DELETE_EXPENSE", payload: expense.id})
       })

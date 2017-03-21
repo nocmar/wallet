@@ -40,8 +40,9 @@ app.get('/api/expenses', (req, res) => {
     })
 });
 
-app.delete('/api/expenses', jsonParser, (req, res) => {
-   Expense.findOneAndRemove(req.body._id, function (err, expense) {
+app.delete('/api/expenses/:id', (req, res) => {
+    console.log(req.params.id);
+   Expense.findByIdAndRemove(req.params.id, function (err, expense) {
         if (err){
             res.send(err);
         }
