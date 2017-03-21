@@ -1,43 +1,59 @@
 import React from "react";
 import ExpenseTable from "./expenseTable";
-import { fetchExpenses, approveExpense, updateExpenseCategory, addExpense,deleteExpense } from "./actions/expenseActions";
+import { connect } from 'react-redux'
+import { fetchExpenses, approveExpense, updateExpenseCategory, addExpense, deleteExpense } from "./actions/expenseActions";
 
-export default class Expenses extends React.Component {
+
+class Expenses extends React.Component {
   componentWillMount() {
-    const { store } = this.props;
-    store.dispatch(fetchExpenses())
-    store.subscribe(() => this.forceUpdate());
-  }
-  acceptExpense(expense) {
-    const { store } = this.props;
-    store.dispatch(approveExpense(expense));
-  }
-
-  updateCategory(expense, newCategory) {
-    const { store } = this.props;
-    store.dispatch(updateExpenseCategory(expense, newCategory));
-  }
-  addExpense(expense) {
-    const { store } = this.props;
-    store.dispatch(addExpense(expense));
-  }
-  deleteExpense(expense){
-    const { store } = this.props;
-    store.dispatch(deleteExpense(expense));
+    this.props.fetchExpenses();
   }
   render() {
-    const props = this.props;
-    const { store } = props;
-    const state = store.getState();
-
-    const {expenses} = state.expenses;
     return (
-      <ExpenseTable expenses={expenses} 
-            addExpense={this.addExpense.bind(this)} 
-            acceptExpense={this.acceptExpense.bind(this)} 
-            updateCategory={this.updateCategory.bind(this)} 
-            deleteExpense={this.deleteExpense.bind(this)}
-            />
+      <ExpenseTable expenses={this.props.expenses.expenses}
+        addExpense={this.props.addExpense}
+        acceptExpense={this.props.acceptExpense}
+        updateCategory={this.props.updateCategory}
+        deleteExpense={this.props.deleteExpense}
+      />
     );
   }
 }
+
+const mapStateToProps = (state) => {
+  return {
+    expenses: state.expenses
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchExpenses: () => {
+      dispatch(fetchExpenses())
+    },
+    acceptExpense: (expense) => {
+      dispatch(approveExpense(expense))
+    },
+    deleteExpense: (expense) => {
+      dispatch(deleteExpense(expense))
+    },
+    addExpense: (expense) => {
+      dispatch(addExpense(expense))
+    },
+    updateCategory: (expense, newCategory) => {
+      dispatch(updateExpenseCategory(expense, newCategory))
+    }
+
+  }
+}
+
+const VisibleExpenses = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Expenses)
+
+export default VisibleExpenses
+
+
+
+

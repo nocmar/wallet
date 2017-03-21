@@ -20,7 +20,7 @@ export function addExpense(expense){
          'Accept': 'application/json'
     }})
      .then((response) => {
-        dispatch({type: "ADD_EXPENSE_SUCCESS", payload: expense})
+        dispatch({type: "ADD_EXPENSE_SUCCESS", payload: response.data})
       })
       .catch((err) => {
         dispatch({type: "ADD_EXPENSE_ERROR", payload: err})
