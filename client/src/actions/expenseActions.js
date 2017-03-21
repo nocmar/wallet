@@ -20,13 +20,26 @@ export function addExpense(expense){
          'Accept': 'application/json'
     }})
      .then((response) => {
-        dispatch({type: "ADD_EXPENSE_SUCCESS", payload: expense})
+        dispatch({type: "ADD_EXPENSE_SUCCESS", payload: response.data})
       })
       .catch((err) => {
         dispatch({type: "ADD_EXPENSE_ERROR", payload: err})
       })
      }
 }
+
+export function deleteExpense(expense){
+  return function(dispatch) {
+      axios.delete('/api/expenses/'+expense._id)
+     .then((response) => {
+        dispatch({type: "DELETE_EXPENSE", payload: expense.id})
+      })
+      .catch((err) => {
+        dispatch({type: "DELETE_EXPENSE_ERROR", payload: err})
+      })
+     }
+}
+
 export function updateExpenseCategory(expense,newCategory){
    expense.category = newCategory;
     var data = JSON.stringify(expense);
