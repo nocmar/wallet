@@ -17,9 +17,15 @@ const customStyles = {
 class ExpenseRow extends React.Component {
   constructor(props) {
     super(props);
-
-       this.state = {
-      modalIsOpen: false
+    var expense = {
+      "amount": "",
+      "category": ""
+    }
+    this.state = {
+      modalIsOpen: false,
+      mainExpense: this.props.expense,
+      sum : this.props.expense.amount,
+      splitedExpenses: [expense]
     };
 
     this.openModal = this.openModal.bind(this);
@@ -89,14 +95,39 @@ class ExpenseRow extends React.Component {
           style={customStyles}
           contentLabel="Example Modal"
         >
-
-          <h2 ref="subtitle">Podziel wydatek</h2>
           <button onClick={this.closeModal}>close</button>
-          <div>Podzial wydatku</div>
+          <h3 ref="subtitle">Podziel wydatek</h3>
+          <div className="row">
+            <div className="col-xs-6">
+            <label>Całość</label>
+              </div>
+               <div className="col-xs-6">
+            <label>{this.props.expense.amount}</label>
+            </div>
           <form>
-            <input />
+           <div className="col-xs-6">
+          <select placeholder="Kategoria" value={this.props.expense.category} onChange={this.handleCategoryChange}>
+            <option value="Spożywcze">Spożywcze</option>
+            <option value="Alkohol">Alkohol</option>
+            <option value="Samochód">Samochód</option>
+            <option value="Transport">Transport</option>
+            <option value="Mieszkanie">Mieszkanie</option>
+          </select>
+          </div>
+            <div className="col-xs-6">
+          <input value={this.props.expense.amount}/>
+          </div>
+          <select placeholder="Wybierz kategorie">
+            <option value="Spożywcze">Spożywcze</option>
+            <option value="Alkohol">Alkohol</option>
+            <option value="Samochód">Samochód</option>
+            <option value="Transport">Transport</option>
+            <option value="Mieszkanie">Mieszkanie</option>
+          </select>
+          <input/>
             <button>split</button>
           </form>
+          </div>  
         </Modal>
         </td>
       </tr>
