@@ -12,7 +12,7 @@ class SplitedExpenseRow extends React.Component {
         this.props.updateCategory(this.props.index, e.target.value);
     }
     handleAmountChange(e) {
-
+        this.props.updateAmount(this.props.index, e.target.value);
     }
     render() {
         return (
@@ -28,7 +28,7 @@ class SplitedExpenseRow extends React.Component {
                     </select>
                 </div>
                 <div className="col-xs-6">
-                    <input value={this.props.amount} onChange={this.handleAmountChange} />
+                    <input type="text" className="form-control"  value={this.props.amount} onChange={this.handleAmountChange} />
                 </div>
             </div>);
     }

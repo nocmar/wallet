@@ -49,7 +49,6 @@ class SplitExpense extends React.Component {
         this.setState({ modalIsOpen: false });
     }
     updateCategory(index,value) {
-        alert(index);
         const newExpense ={
             "amount": this.state.splitedExpenses[index].amount,
             "category": value,
@@ -65,8 +64,19 @@ class SplitExpense extends React.Component {
         //this.props.updateCategory(this.props.expense, e.target.value);
     }
 
-    updateAmount(e,index){
-           alert(e);
+    updateAmount(index,value){
+        const newExpense ={
+            "amount": value,
+            "category": this.state.splitedExpenses[index].category,
+            "id": this.state.splitedExpenses[index].id
+        }
+        const newExpenses = [...this.state.splitedExpenses]
+        var expensetToUpdate = newExpenses.findIndex(expense => expense.id === index)
+        newExpenses[expensetToUpdate] = newExpense
+
+       this.setState({
+           splitedExpenses: newExpenses
+       })
      }
     render() {
         const splitedExp = this.state.splitedExpenses.map((expense) => {
