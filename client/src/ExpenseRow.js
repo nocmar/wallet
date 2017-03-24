@@ -1,7 +1,22 @@
 import React from "react";
 import Modal from 'react-modal';
 
-
+const SplitedExpenseRow=({amount, category})=>(
+     <div>
+     <div className="col-xs-6">
+          <select placeholder="Kategoria" value={category}>
+            <option value="Spożywcze">Spożywcze</option>
+            <option value="Alkohol">Alkohol</option>
+            <option value="Samochód">Samochód</option>
+            <option value="Transport">Transport</option>
+            <option value="Mieszkanie">Mieszkanie</option>
+          </select>
+          </div>
+            <div className="col-xs-6">
+          <input value={amount}/>
+          </div>
+     </div>
+);
 
 const customStyles = {
   content : {
@@ -19,7 +34,8 @@ class ExpenseRow extends React.Component {
     super(props);
     var expense = {
       "amount": "",
-      "category": ""
+      "category": "",
+      "id": 1
     }
     this.state = {
       modalIsOpen: false,
@@ -66,6 +82,9 @@ class ExpenseRow extends React.Component {
 
     var disabled = (this.props.expense.approved);
     var expenseState = this.props.expense.approved ? "success" : "warning";
+    const splitedExp = this.state.splitedExpenses.map((expense) =>{
+      return <SplitedExpenseRow key ={expense.id} {...expense}/>
+    });
 
     return (
       <tr className={expenseState}>
@@ -117,14 +136,7 @@ class ExpenseRow extends React.Component {
             <div className="col-xs-6">
           <input value={this.props.expense.amount}/>
           </div>
-          <select placeholder="Wybierz kategorie">
-            <option value="Spożywcze">Spożywcze</option>
-            <option value="Alkohol">Alkohol</option>
-            <option value="Samochód">Samochód</option>
-            <option value="Transport">Transport</option>
-            <option value="Mieszkanie">Mieszkanie</option>
-          </select>
-          <input/>
+          {splitedExp}
             <button>split</button>
           </form>
           </div>  
