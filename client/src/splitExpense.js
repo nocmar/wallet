@@ -1,22 +1,6 @@
 import React from "react";
 import Modal from 'react-modal';
-
-const SplitedExpenseRow = ({amount, category}) => (
-    <div>
-        <div className="col-xs-6">
-            <select placeholder="Kategoria" value={category}>
-                <option value="Spożywcze">Spożywcze</option>
-                <option value="Alkohol">Alkohol</option>
-                <option value="Samochód">Samochód</option>
-                <option value="Transport">Transport</option>
-                <option value="Mieszkanie">Mieszkanie</option>
-            </select>
-        </div>
-        <div className="col-xs-6">
-            <input value={amount} />
-        </div>
-    </div>
-);
+import SplitedExpenseRow from  './splitedExpenseRow';
 
 const customStyles = {
     content: {
@@ -36,7 +20,7 @@ class SplitExpense extends React.Component {
         var expense = {
             "amount": "",
             "category": "",
-            "id": 1
+            "id": 0
         }
         this.state = {
             modalIsOpen: this.props.modalIsOpen,
@@ -48,7 +32,8 @@ class SplitExpense extends React.Component {
         this.afterOpenModal = this.afterOpenModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
 
-        this.handleCategoryChange = this.handleCategoryChange.bind(this);
+        this.updateCategory = this.updateCategory.bind(this);
+        this.updateAmount = this.updateAmount.bind(this);
     }
 
     //I'm not sure if it's a propre way of displaying modal, maybe it should be as part of global store and redux?
@@ -63,13 +48,32 @@ class SplitExpense extends React.Component {
     closeModal() {
         this.setState({ modalIsOpen: false });
     }
-    handleCategoryChange(e) {
-        this.props.updateCategory(this.props.expense, e.target.value);
+    updateCategory(index,value) {
+        alert(index);
+        const newExpense ={
+            "amount": this.state.splitedExpenses[index].amount,
+            "category": value,
+            "id": this.state.splitedExpenses[index].id
+        }
+        const newExpenses = [...this.state.splitedExpenses]
+        var expensetToUpdate = newExpenses.findIndex(expense => expense.id === index)
+        newExpenses[expensetToUpdate] = newExpense
+
+       this.setState({
+           splitedExpenses: newExpenses
+       })
+        //this.props.updateCategory(this.props.expense, e.target.value);
     }
 
+    updateAmount(e,index){
+           alert(e);
+     }
     render() {
         const splitedExp = this.state.splitedExpenses.map((expense) => {
-            return <SplitedExpenseRow key={expense.id} {...expense} />
+            return <SplitedExpenseRow key={expense.id} {...expense} 
+            index = {expense.id}
+            updateCategory ={this.updateCategory}
+            updateAmount = {this.updateAmount}/>
         });
 
         return (
