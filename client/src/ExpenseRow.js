@@ -1,53 +1,16 @@
 import React from "react";
-import Modal from 'react-modal';
-
-const SplitedExpenseRow=({amount, category})=>(
-     <div>
-     <div className="col-xs-6">
-          <select placeholder="Kategoria" value={category}>
-            <option value="Spożywcze">Spożywcze</option>
-            <option value="Alkohol">Alkohol</option>
-            <option value="Samochód">Samochód</option>
-            <option value="Transport">Transport</option>
-            <option value="Mieszkanie">Mieszkanie</option>
-          </select>
-          </div>
-            <div className="col-xs-6">
-          <input value={amount}/>
-          </div>
-     </div>
-);
-
-const customStyles = {
-  content : {
-    top                   : '50%',
-    left                  : '50%',
-    right                 : 'auto',
-    bottom                : 'auto',
-    marginRight           : '-50%',
-    transform             : 'translate(-50%, -50%)'
-  }
-};
+import SplitExpense from './splitExpense'
 
 class ExpenseRow extends React.Component {
   constructor(props) {
     super(props);
-    var expense = {
-      "amount": "",
-      "category": "",
-      "id": 1
-    }
+
     this.state = {
-      modalIsOpen: false,
-      mainExpense: this.props.expense,
-      sum : this.props.expense.amount,
-      splitedExpenses: [expense]
+      modalIsOpen: false
     };
 
     this.openModal = this.openModal.bind(this);
-    this.afterOpenModal = this.afterOpenModal.bind(this);
-    this.closeModal = this.closeModal.bind(this);
-
+  
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
     this.handleDelete = this.handleDelete.bind(this);
@@ -55,15 +18,6 @@ class ExpenseRow extends React.Component {
 
   openModal() {
     this.setState({modalIsOpen: true});
-  }
-
-  afterOpenModal() {
-    // references are now sync'd and can be accessed.
-    this.refs.subtitle.style.color = '#f00';
-  }
-
-  closeModal() {
-    this.setState({modalIsOpen: false});
   }
 
   handleClick(e) {
@@ -82,9 +36,6 @@ class ExpenseRow extends React.Component {
 
     var disabled = (this.props.expense.approved);
     var expenseState = this.props.expense.approved ? "success" : "warning";
-    const splitedExp = this.state.splitedExpenses.map((expense) =>{
-      return <SplitedExpenseRow key ={expense.id} {...expense}/>
-    });
 
     return (
       <tr className={expenseState}>
@@ -107,40 +58,7 @@ class ExpenseRow extends React.Component {
         <td><button className="btn btn-success btn-lg" style={{ width: "25%" }} disabled={disabled} onClick={this.handleClick}>OK</button>
           <button className="btn btn-danger btn-lg" style={{ width: "25%" }} onClick={this.handleDelete}>Del</button>
           <button className="btn btn-info btn-lg" style={{ width: "50%" }} onClick={this.openModal}>Split</button>
-           <Modal
-          isOpen={this.state.modalIsOpen}
-          onAfterOpen={this.afterOpenModal}
-          onRequestClose={this.closeModal}
-          style={customStyles}
-          contentLabel="Example Modal"
-        >
-          <button onClick={this.closeModal}>close</button>
-          <h3 ref="subtitle">Podziel wydatek</h3>
-          <div className="row">
-            <div className="col-xs-6">
-            <label>Całość</label>
-              </div>
-               <div className="col-xs-6">
-            <label>{this.props.expense.amount}</label>
-            </div>
-          <form>
-           <div className="col-xs-6">
-          <select placeholder="Kategoria" value={this.props.expense.category} onChange={this.handleCategoryChange}>
-            <option value="Spożywcze">Spożywcze</option>
-            <option value="Alkohol">Alkohol</option>
-            <option value="Samochód">Samochód</option>
-            <option value="Transport">Transport</option>
-            <option value="Mieszkanie">Mieszkanie</option>
-          </select>
-          </div>
-            <div className="col-xs-6">
-          <input value={this.props.expense.amount}/>
-          </div>
-          {splitedExp}
-            <button>split</button>
-          </form>
-          </div>  
-        </Modal>
+           <SplitExpense modalIsOpen={this.state.modalIsOpen} expense={this.props.expense}/>
         </td>
       </tr>
     );
