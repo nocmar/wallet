@@ -17,16 +17,22 @@ const customStyles = {
 class SplitExpense extends React.Component {
     constructor(props) {
         super(props);
+        var mainExpense = {
+            "amount": this.props.expense.amount,
+            "category": this.props.expense.category,
+            "id": 0
+        }
+
         var expense = {
             "amount": "",
             "category": "",
-            "id": 0
+            "id": 1
         }
         this.state = {
             modalIsOpen: this.props.modalIsOpen,
             mainExpense: this.props.expense,
             sum: this.props.expense.amount,
-            splitedExpenses: [expense]
+            splitedExpenses: [mainExpense,expense]
         };
 
         this.afterOpenModal = this.afterOpenModal.bind(this);
@@ -70,13 +76,18 @@ class SplitExpense extends React.Component {
             "category": this.state.splitedExpenses[index].category,
             "id": this.state.splitedExpenses[index].id
         }
+        const mainExpense={
+             "amount": this.state.sum - value,
+            "category": this.state.splitedExpenses[0].category,
+            "id": this.state.splitedExpenses[0].id
+        }
         const newExpenses = [...this.state.splitedExpenses]
         var expensetToUpdate = newExpenses.findIndex(expense => expense.id === index)
         newExpenses[expensetToUpdate] = newExpense
-
+        newExpenses[0] = mainExpense
        this.setState({
            splitedExpenses: newExpenses
-       })
+        })
      }
     render() {
         const splitedExp = this.state.splitedExpenses.map((expense) => {
@@ -99,22 +110,10 @@ class SplitExpense extends React.Component {
                         <label>Całość</label>
                     </div>
                     <div className="col-xs-6">
-                        <label>{this.props.expense.amount}</label>
+                        <label>{this.state.sum}</label>
                     </div>
                     <form>
-                        <div className="col-xs-6">
-                            <select placeholder="Kategoria" value={this.props.expense.category} onChange={this.handleCategoryChange}>
-                                <option value="Spożywcze">Spożywcze</option>
-                                <option value="Alkohol">Alkohol</option>
-                                <option value="Samochód">Samochód</option>
-                                <option value="Transport">Transport</option>
-                                <option value="Mieszkanie">Mieszkanie</option>
-                            </select>
-                        </div>
-                        <div className="col-xs-6">
-                            <input value={this.props.expense.amount} />
-                        </div>
-                        {splitedExp}
+                                     {splitedExp}
                         <button className="btn btn-success btn-md">OK</button>
                         <button className="btn btn-warning btn-md" onClick={this.closeModal}>Anuluj</button>
                     </form>
