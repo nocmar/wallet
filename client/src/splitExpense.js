@@ -24,7 +24,7 @@ class SplitExpense extends React.Component {
         }
 
         var expense = {
-            "amount": "",
+            "amount": '',
             "category": "",
             "id": 1
         }
@@ -58,7 +58,7 @@ class SplitExpense extends React.Component {
 
     addNewExpense() {
         var expense = {
-            "amount": "",
+            "amount": '',
             "category": "",
             "id": this.state.splitedExpenses.length
         }
@@ -83,20 +83,30 @@ class SplitExpense extends React.Component {
         //this.props.updateCategory(this.props.expense, e.target.value);
     }
 
+    getSumOfSplitedExpenses(expenses){
+       var sum = 0;
+       expenses.slice(1).forEach(function(expense){
+            sum+=Number(expense.amount);
+       });
+       return sum;
+    }
     updateAmount(index, value) {
         const newExpense = {
             "amount": value,
             "category": this.state.splitedExpenses[index].category,
             "id": this.state.splitedExpenses[index].id
         }
-        const mainExpense = {
-            "amount": this.state.sum - value,
-            "category": this.state.splitedExpenses[0].category,
-            "id": this.state.splitedExpenses[0].id
-        }
+
         const newExpenses = [...this.state.splitedExpenses]
         var expensetToUpdate = newExpenses.findIndex(expense => expense.id === index)
         newExpenses[expensetToUpdate] = newExpense
+ 
+        const mainExpense = {
+            "amount": this.state.sum - this.getSumOfSplitedExpenses(newExpenses),
+            "category": this.state.splitedExpenses[0].category,
+            "id": this.state.splitedExpenses[0].id
+        }
+
         newExpenses[0] = mainExpense
         this.setState({
             splitedExpenses: newExpenses
@@ -127,10 +137,13 @@ class SplitExpense extends React.Component {
                     </div>
                     <form>
                         {splitedExp}
-                        <button className="btn btn-info btn-md" onClick={this.addNewExpense}>Nowy</button>
-
+                          <div className="col-xs-6">
+                        <button className="btn btn-info btn-sm" onClick={this.addNewExpense}>Nowy wydatek</button>
+                        </div>
+                        <div className ="form-group col-xs-12">
                         <button className="btn btn-success btn-md">OK</button>
                         <button className="btn btn-warning btn-md" onClick={this.closeModal}>Anuluj</button>
+                        </div>
                     </form>
                 </div>
             </Modal>
