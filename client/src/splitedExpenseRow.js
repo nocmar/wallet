@@ -20,6 +20,7 @@ class SplitedExpenseRow extends React.Component {
             <div>
                 <div className="col-xs-6">
                     <select placeholder="Kategoria" value={this.props.category} onChange={this.handleCategoryChange}>
+                        <option value=''>Wybierz...</option>
                         <option value="Spożywcze">Spożywcze</option>
                         <option value="Alkohol">Alkohol</option>
                         <option value="Samochód">Samochód</option>

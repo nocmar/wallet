@@ -1,6 +1,6 @@
 import React from "react";
 import Modal from 'react-modal';
-import SplitedExpenseRow from  './splitedExpenseRow';
+import SplitedExpenseRow from './splitedExpenseRow';
 
 const customStyles = {
     content: {
@@ -32,7 +32,7 @@ class SplitExpense extends React.Component {
             modalIsOpen: this.props.modalIsOpen,
             mainExpense: this.props.expense,
             sum: this.props.expense.amount,
-            splitedExpenses: [mainExpense,expense]
+            splitedExpenses: [mainExpense, expense]
         };
 
         this.afterOpenModal = this.afterOpenModal.bind(this);
@@ -40,6 +40,7 @@ class SplitExpense extends React.Component {
 
         this.updateCategory = this.updateCategory.bind(this);
         this.updateAmount = this.updateAmount.bind(this);
+        this.addNewExpense = this.addNewExpense.bind(this);
     }
 
     //I'm not sure if it's a propre way of displaying modal, maybe it should be as part of global store and redux?
@@ -54,8 +55,20 @@ class SplitExpense extends React.Component {
     closeModal() {
         this.setState({ modalIsOpen: false });
     }
-    updateCategory(index,value) {
-        const newExpense ={
+
+    addNewExpense() {
+        var expense = {
+            "amount": "",
+            "category": "",
+            "id": this.state.splitedExpenses.length
+        }
+        const newExpenses = [...this.state.splitedExpenses, expense]
+        this.setState({
+            splitedExpenses: newExpenses
+        })
+    }
+    updateCategory(index, value) {
+        const newExpense = {
             "amount": this.state.splitedExpenses[index].amount,
             "category": value,
             "id": this.state.splitedExpenses[index].id
@@ -64,20 +77,20 @@ class SplitExpense extends React.Component {
         var expensetToUpdate = newExpenses.findIndex(expense => expense.id === index)
         newExpenses[expensetToUpdate] = newExpense
 
-       this.setState({
-           splitedExpenses: newExpenses
-       })
+        this.setState({
+            splitedExpenses: newExpenses
+        })
         //this.props.updateCategory(this.props.expense, e.target.value);
     }
 
-    updateAmount(index,value){
-        const newExpense ={
+    updateAmount(index, value) {
+        const newExpense = {
             "amount": value,
             "category": this.state.splitedExpenses[index].category,
             "id": this.state.splitedExpenses[index].id
         }
-        const mainExpense={
-             "amount": this.state.sum - value,
+        const mainExpense = {
+            "amount": this.state.sum - value,
             "category": this.state.splitedExpenses[0].category,
             "id": this.state.splitedExpenses[0].id
         }
@@ -85,16 +98,16 @@ class SplitExpense extends React.Component {
         var expensetToUpdate = newExpenses.findIndex(expense => expense.id === index)
         newExpenses[expensetToUpdate] = newExpense
         newExpenses[0] = mainExpense
-       this.setState({
-           splitedExpenses: newExpenses
+        this.setState({
+            splitedExpenses: newExpenses
         })
-     }
+    }
     render() {
         const splitedExp = this.state.splitedExpenses.map((expense) => {
-            return <SplitedExpenseRow key={expense.id} {...expense} 
-            index = {expense.id}
-            updateCategory ={this.updateCategory}
-            updateAmount = {this.updateAmount}/>
+            return <SplitedExpenseRow key={expense.id} {...expense}
+                index={expense.id}
+                updateCategory={this.updateCategory}
+                updateAmount={this.updateAmount} />
         });
 
         return (
@@ -113,7 +126,9 @@ class SplitExpense extends React.Component {
                         <label>{this.state.sum}</label>
                     </div>
                     <form>
-                                     {splitedExp}
+                        {splitedExp}
+                        <button className="btn btn-info btn-md" onClick={this.addNewExpense}>Nowy</button>
+
                         <button className="btn btn-success btn-md">OK</button>
                         <button className="btn btn-warning btn-md" onClick={this.closeModal}>Anuluj</button>
                     </form>
