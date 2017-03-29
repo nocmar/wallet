@@ -19,14 +19,12 @@ class SplitExpense extends React.Component {
         super(props);
         var mainExpense = {
             "amount": this.props.expense.amount,
-            "category": this.props.expense.category,
-            "id": 0
+            "category": this.props.expense.category
         }
 
         var expense = {
             "amount": '',
-            "category": "",
-            "id": 1
+            "category": ""
         }
         this.state = {
             modalIsOpen: this.props.modalIsOpen,
@@ -60,8 +58,7 @@ class SplitExpense extends React.Component {
     addNewExpense() {
         var expense = {
             "amount": '',
-            "category": "",
-            "id": this.state.splitedExpenses.length
+            "category": ""
         }
         const newExpenses = [...this.state.splitedExpenses, expense]
         this.setState({
@@ -71,12 +68,10 @@ class SplitExpense extends React.Component {
     updateCategory(index, value) {
         const newExpense = {
             "amount": this.state.splitedExpenses[index].amount,
-            "category": value,
-            "id": this.state.splitedExpenses[index].id
+            "category": value
         }
         const newExpenses = [...this.state.splitedExpenses]
-        var expensetToUpdate = newExpenses.findIndex(expense => expense.id === index)
-        newExpenses[expensetToUpdate] = newExpense
+        newExpenses[index] = newExpense
 
         this.setState({
             splitedExpenses: newExpenses
@@ -94,18 +89,15 @@ class SplitExpense extends React.Component {
     updateAmount(index, value) {
         const newExpense = {
             "amount": value,
-            "category": this.state.splitedExpenses[index].category,
-            "id": this.state.splitedExpenses[index].id
+            "category": this.state.splitedExpenses[index].category
         }
 
         const newExpenses = [...this.state.splitedExpenses]
-        var expensetToUpdate = newExpenses.findIndex(expense => expense.id === index)
-        newExpenses[expensetToUpdate] = newExpense
+        newExpenses[index] = newExpense
 
         const mainExpense = {
             "amount": this.state.sum - this.getSumOfSplitedExpenses(newExpenses),
-            "category": this.state.splitedExpenses[0].category,
-            "id": this.state.splitedExpenses[0].id
+            "category": this.state.splitedExpenses[0].category
         }
 
         newExpenses[0] = mainExpense
@@ -139,8 +131,9 @@ class SplitExpense extends React.Component {
     }
     render() {
         const splitedExp = this.state.splitedExpenses.map((expense) => {
-            return <SplitedExpenseRow key={expense.id} {...expense}
-                index={expense.id}
+            var index = this.state.splitedExpenses.indexOf(expense)
+            return <SplitedExpenseRow key={index} {...expense}
+                index={index}
                 updateCategory={this.updateCategory}
                 updateAmount={this.updateAmount} />
         });
