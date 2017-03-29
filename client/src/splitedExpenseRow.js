@@ -29,7 +29,7 @@ class SplitedExpenseRow extends React.Component {
                     </select>
                 </div>
                 <div className="col-xs-6">
-                    <input type="text" className="form-control"  value={this.props.amount} onChange={this.handleAmountChange} />
+                    <input type="number" className="form-control"  value={this.props.amount} onChange={this.handleAmountChange} />
                 </div>
             </div>);
     }

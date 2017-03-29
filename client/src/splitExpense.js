@@ -17,21 +17,7 @@ const customStyles = {
 class SplitExpense extends React.Component {
     constructor(props) {
         super(props);
-        var mainExpense = {
-            "amount": this.props.expense.amount,
-            "category": this.props.expense.category
-        }
-
-        var expense = {
-            "amount": '',
-            "category": ""
-        }
-        this.state = {
-            modalIsOpen: this.props.modalIsOpen,
-            mainExpense: this.props.expense,
-            sum: this.props.expense.amount,
-            splitedExpenses: [mainExpense, expense]
-        };
+        this.setDefaultState(this.props.modalIsOpen);
 
         this.afterOpenModal = this.afterOpenModal.bind(this);
         this.closeModal = this.closeModal.bind(this);
@@ -47,11 +33,30 @@ class SplitExpense extends React.Component {
         this.setState({ modalIsOpen: nextProps.modalIsOpen });
     }
 
+    setDefaultState(modalIsOpen) {
+        var mainExpense = {
+            "amount": this.props.expense.amount,
+            "category": this.props.expense.category
+        }
+
+        var expense = {
+            "amount": '',
+            "category": ""
+        }
+        this.state = {
+            modalIsOpen: modalIsOpen,
+            mainExpense: this.props.expense,
+            sum: this.props.expense.amount,
+            splitedExpenses: [mainExpense, expense]
+        };
+
+    }
     afterOpenModal() {
         this.refs.subtitle.style.color = '#f00';
     }
 
     closeModal() {
+        this.setDefaultState(false);
         this.setState({ modalIsOpen: false });
     }
 
@@ -128,6 +133,7 @@ class SplitExpense extends React.Component {
         mainExpense.amount = this.state.splitedExpenses[0].amount;
         mainExpense.category = this.state.splitedExpenses[0].category;
         this.props.updateExpense(mainExpense);
+        this.setDefaultState(false);
     }
     render() {
         const splitedExp = this.state.splitedExpenses.map((expense) => {
