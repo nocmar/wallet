@@ -10,6 +10,7 @@ class ExpenseRow extends React.Component {
     };
 
     this.openModal = this.openModal.bind(this);
+    this.closeModal = this.closeModal.bind(this);
 
     this.handleCategoryChange = this.handleCategoryChange.bind(this);
     this.handleClick = this.handleClick.bind(this);
@@ -19,7 +20,9 @@ class ExpenseRow extends React.Component {
   openModal() {
     this.setState({ modalIsOpen: true });
   }
-
+  closeModal(){
+     this.setState({ modalIsOpen: false });
+  }
   handleClick(e) {
     this.props.acceptExpense(this.props.expense);
   }
@@ -58,7 +61,7 @@ class ExpenseRow extends React.Component {
         <td><button className="btn btn-success btn-lg" style={{ width: "25%" }} disabled={disabled} onClick={this.handleClick}>OK</button>
           <button className="btn btn-danger btn-lg" style={{ width: "25%" }} onClick={this.handleDelete}>Del</button>
           <button className="btn btn-info btn-lg" style={{ width: "50%" }} onClick={this.openModal}>Split</button>
-          <SplitExpense modalIsOpen={this.state.modalIsOpen} expense={this.props.expense} addExpense={this.props.addExpense} updateExpense={this.props.updateExpense} />
+          <SplitExpense modalIsOpen={this.state.modalIsOpen} closeModal={this.closeModal} expense={this.props.expense} addExpense={this.props.addExpense} updateExpense={this.props.updateExpense} />
         </td>
       </tr>
     );

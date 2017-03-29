@@ -57,7 +57,7 @@ class SplitExpense extends React.Component {
 
     closeModal() {
         this.setDefaultState(false);
-        this.setState({ modalIsOpen: false });
+        this.props.closeModal();
     }
 
     addNewExpense() {
@@ -134,6 +134,7 @@ class SplitExpense extends React.Component {
         mainExpense.category = this.state.splitedExpenses[0].category;
         this.props.updateExpense(mainExpense);
         this.setDefaultState(false);
+        this.props.closeModal();
     }
     render() {
         const splitedExp = this.state.splitedExpenses.map((expense) => {
