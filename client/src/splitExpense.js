@@ -41,9 +41,10 @@ class SplitExpense extends React.Component {
         this.updateCategory = this.updateCategory.bind(this);
         this.updateAmount = this.updateAmount.bind(this);
         this.addNewExpense = this.addNewExpense.bind(this);
+        this.saveSpiltedExpense = this.saveSpiltedExpense.bind(this);
     }
 
-    //I'm not sure if it's a propre way of displaying modal, maybe it should be as part of global store and redux?
+    //I'm not sure if it's a proper way of displaying modal, maybe it should be as part of global store and redux?
     componentWillReceiveProps(nextProps) {
         this.setState({ modalIsOpen: nextProps.modalIsOpen });
     }
@@ -83,12 +84,12 @@ class SplitExpense extends React.Component {
         //this.props.updateCategory(this.props.expense, e.target.value);
     }
 
-    getSumOfSplitedExpenses(expenses){
-       var sum = 0;
-       expenses.slice(1).forEach(function(expense){
-            sum+=Number(expense.amount);
-       });
-       return sum;
+    getSumOfSplitedExpenses(expenses) {
+        var sum = 0;
+        expenses.slice(1).forEach(function (expense) {
+            sum += Number(expense.amount);
+        });
+        return sum;
     }
     updateAmount(index, value) {
         const newExpense = {
@@ -100,7 +101,7 @@ class SplitExpense extends React.Component {
         const newExpenses = [...this.state.splitedExpenses]
         var expensetToUpdate = newExpenses.findIndex(expense => expense.id === index)
         newExpenses[expensetToUpdate] = newExpense
- 
+
         const mainExpense = {
             "amount": this.state.sum - this.getSumOfSplitedExpenses(newExpenses),
             "category": this.state.splitedExpenses[0].category,
@@ -111,6 +112,28 @@ class SplitExpense extends React.Component {
         this.setState({
             splitedExpenses: newExpenses
         })
+    }
+
+    saveSpiltedExpense() {
+        this.setState({ modalIsOpen: false });
+        var mainExpense = this.state.mainExpense
+        var addExpense = this.props.addExpense
+        this.state.splitedExpenses.slice(1).forEach(function (expense) {
+            var newExpense = {
+                "id": Date.now(),
+                "tranactionDate": mainExpense.tranactionDate,
+                "transactionDetails": mainExpense.transactionDetails,
+                "transactionBankType": mainExpense.transactionBankType,
+                "transactionType": mainExpense.transactionType,
+                "account": mainExpense.account,
+                "amount": expense.amount,
+                "approved": true,
+                "category": expense.category,
+                "notes": mainExpense.notes
+            }
+            addExpense(newExpense)
+        });
+
     }
     render() {
         const splitedExp = this.state.splitedExpenses.map((expense) => {
@@ -137,12 +160,12 @@ class SplitExpense extends React.Component {
                     </div>
                     <form>
                         {splitedExp}
-                          <div className="col-xs-6">
-                        <button className="btn btn-info btn-sm" onClick={this.addNewExpense}>Nowy wydatek</button>
+                        <div className="col-xs-6">
+                            <button className="btn btn-info btn-sm" onClick={this.addNewExpense}>Nowy wydatek</button>
                         </div>
-                        <div className ="form-group col-xs-12">
-                        <button className="btn btn-success btn-md">OK</button>
-                        <button className="btn btn-warning btn-md" onClick={this.closeModal}>Anuluj</button>
+                        <div className="form-group col-xs-12">
+                            <button className="btn btn-success btn-md" onClick={this.saveSpiltedExpense}>OK</button>
+                            <button className="btn btn-warning btn-md" onClick={this.closeModal}>Anuluj</button>
                         </div>
                     </form>
                 </div>

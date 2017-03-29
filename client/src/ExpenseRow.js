@@ -58,7 +58,7 @@ class ExpenseRow extends React.Component {
         <td><button className="btn btn-success btn-lg" style={{ width: "25%" }} disabled={disabled} onClick={this.handleClick}>OK</button>
           <button className="btn btn-danger btn-lg" style={{ width: "25%" }} onClick={this.handleDelete}>Del</button>
           <button className="btn btn-info btn-lg" style={{ width: "50%" }} onClick={this.openModal}>Split</button>
-           <SplitExpense modalIsOpen={this.state.modalIsOpen} expense={this.props.expense}/>
+           <SplitExpense modalIsOpen={this.state.modalIsOpen} expense={this.props.expense} addExpense ={this.props.addExpense}/>
         </td>
       </tr>
     );
