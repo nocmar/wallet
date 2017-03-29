@@ -133,7 +133,9 @@ class SplitExpense extends React.Component {
             }
             addExpense(newExpense)
         });
-
+        mainExpense.amount = this.state.splitedExpenses[0].amount;
+        mainExpense.category = this.state.splitedExpenses[0].category;
+        this.props.updateExpense(mainExpense);
     }
     render() {
         const splitedExp = this.state.splitedExpenses.map((expense) => {

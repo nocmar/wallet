@@ -14,6 +14,7 @@ export default class ExpenseTable extends React.Component {
       deleteExpense={this.props.deleteExpense} 
       updateCategory={this.props.updateCategory}
       addExpense ={this.props.addExpense}
+      updateExpense = {this.props.updateExpense}
        />);
     }.bind(this));
 

@@ -1,7 +1,7 @@
 import React from "react";
 import ExpenseTable from "./expenseTable";
 import { connect } from 'react-redux'
-import { fetchExpenses, approveExpense, updateExpenseCategory, addExpense, deleteExpense } from "./actions/expenseActions";
+import { fetchExpenses, approveExpense, updateExpenseCategory, addExpense, deleteExpense, updateExpense } from "./actions/expenseActions";
 
 
 class Expenses extends React.Component {
@@ -15,6 +15,7 @@ class Expenses extends React.Component {
         acceptExpense={this.props.acceptExpense}
         updateCategory={this.props.updateCategory}
         deleteExpense={this.props.deleteExpense}
+        updateExpense = {this.props.updateExpense}
       />
     );
   }
@@ -42,6 +43,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     updateCategory: (expense, newCategory) => {
       dispatch(updateExpenseCategory(expense, newCategory))
+    },
+    updateExpense: (expense) => {
+      dispatch(updateExpense(expense))
     }
 
   }

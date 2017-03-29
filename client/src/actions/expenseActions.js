@@ -76,3 +76,21 @@ export function approveExpense(expense){
       })
      }
 }
+
+
+export function updateExpense(expense){
+   var data = JSON.stringify(expense);
+  return function(dispatch) {
+      axios.put('/api/expenses', data, {
+    headers: {
+        'Content-Type': 'application/json',
+         'Accept': 'application/json'
+    }})
+     .then((response) => {
+        dispatch({type: "UPDATE_EXPENSE", payload: expense})
+      })
+      .catch((err) => {
+        dispatch({type: "UPDATE_EXPENSE_ERROR", payload: err})
+      })
+     }
+}
