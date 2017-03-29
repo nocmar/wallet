@@ -50,6 +50,7 @@ class ExpenseRow extends React.Component {
         <td>{this.props.expense.amount}</td>
         <td>
           <select placeholder="Kategoria" value={this.props.expense.category} onChange={this.handleCategoryChange}>
+          <option value=''>Wybierz...</option>
             <option value="Spożywcze">Spożywcze</option>
             <option value="Alkohol">Alkohol</option>
             <option value="Samochód">Samochód</option>

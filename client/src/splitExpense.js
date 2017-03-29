@@ -116,6 +116,7 @@ class SplitExpense extends React.Component {
         var mainExpense = this.state.mainExpense
         var addExpense = this.props.addExpense
         this.state.splitedExpenses.slice(1).forEach(function (expense) {
+            if(expense.amount && expense.category && expense.amount > 0){
             var newExpense = {
                 "id": Date.now(),
                 "tranactionDate": mainExpense.tranactionDate,
@@ -129,6 +130,7 @@ class SplitExpense extends React.Component {
                 "notes": mainExpense.notes
             }
             addExpense(newExpense)
+            }
         });
         mainExpense.amount = this.state.splitedExpenses[0].amount;
         mainExpense.category = this.state.splitedExpenses[0].category;
