@@ -44,6 +44,9 @@ export default class Nav extends React.Component {
               <li className={accountsClass}>
                 <Link to="accounts" onClick={this.toggleCollapse.bind(this)}>Konta</Link>
               </li>
+               <li className={accountsClass}>
+                <Link to="dashboard" onClick={this.toggleCollapse.bind(this)}>Dashboard</Link>
+              </li>
             </ul>
           </div>
         </div>

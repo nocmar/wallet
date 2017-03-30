@@ -7,6 +7,7 @@ import 'bootstrap/dist/css/bootstrap-theme.css';
 import VisibleExpenses from "./expenses";
 import Accounts from "./accounts";
 import Budgets from "./budgets";
+import Dashboard from "./Dashboard";
 import Layout from "./layout";
 
 import { Provider } from "react-redux"
@@ -19,6 +20,7 @@ ReactDOM.render(
       <IndexRoute component={VisibleExpenses}></IndexRoute>
       <Route path="budgets" name="Budzety" component={Budgets}></Route>
       <Route path="accounts" name="Konta" component={Accounts}></Route>
+      <Route path="dashboard" name="Dashboard" component={Dashboard}></Route>
     </Route>
   </Router>
   </Provider>,
