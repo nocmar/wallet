@@ -42,7 +42,7 @@ class ExpenseRow extends React.Component {
 
     return (
       <tr className={expenseState}>
-        <td style={{ width: "10%" }}>{this.props.expense.tranactionDate}</td>
+        <td style={{ width: "10%" }}>{new Date(this.props.expense.tranactionDate).toLocaleDateString()}</td>
         <td style={{ width: "20%" }}>{this.props.expense.transactionDetails}</td>
         <td className="transactionType">{this.props.expense.transactionBankType}</td>
         <td>{this.props.expense.transactionType}</td>

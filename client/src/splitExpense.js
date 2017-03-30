@@ -47,7 +47,8 @@ class SplitExpense extends React.Component {
             modalIsOpen: modalIsOpen,
             mainExpense: this.props.expense,
             sum: this.props.expense.amount,
-            splitedExpenses: [mainExpense, expense]
+            splitedExpenses: [mainExpense, expense],
+            errorMessage: ""
         };
 
     }
@@ -84,9 +85,9 @@ class SplitExpense extends React.Component {
         //this.props.updateCategory(this.props.expense, e.target.value);
     }
 
-    getSumOfSplitedExpenses(expenses) {
+    getSumOfExpenses(expenses) {
         var sum = 0;
-        expenses.slice(1).forEach(function (expense) {
+        expenses.forEach(function (expense) {
             sum += Number(expense.amount);
         });
         return sum;
@@ -100,8 +101,12 @@ class SplitExpense extends React.Component {
         const newExpenses = [...this.state.splitedExpenses]
         newExpenses[index] = newExpense
 
+        var sum = this.state.sum - this.getSumOfExpenses(newExpenses.slice(1))
+        if (sum < 0) {
+            sum = 0
+        }
         const mainExpense = {
-            "amount": this.state.sum - this.getSumOfSplitedExpenses(newExpenses),
+            "amount": sum,
             "category": this.state.splitedExpenses[0].category
         }
 
@@ -112,31 +117,45 @@ class SplitExpense extends React.Component {
     }
 
     saveSpiltedExpense() {
-        this.setState({ modalIsOpen: false });
-        var mainExpense = this.state.mainExpense
-        var addExpense = this.props.addExpense
-        this.state.splitedExpenses.slice(1).forEach(function (expense) {
-            if(expense.amount && expense.category && expense.amount > 0){
-            var newExpense = {
-                "id": Date.now(),
-                "tranactionDate": mainExpense.tranactionDate,
-                "transactionDetails": mainExpense.transactionDetails,
-                "transactionBankType": mainExpense.transactionBankType,
-                "transactionType": mainExpense.transactionType,
-                "account": mainExpense.account,
-                "amount": expense.amount,
-                "approved": true,
-                "category": expense.category,
-                "notes": mainExpense.notes
-            }
-            addExpense(newExpense)
-            }
-        });
-        mainExpense.amount = this.state.splitedExpenses[0].amount;
-        mainExpense.category = this.state.splitedExpenses[0].category;
-        this.props.updateExpense(mainExpense);
-        this.setDefaultState(false);
-        this.props.closeModal();
+        var that = this;
+        
+        var sum = this.getSumOfExpenses(this.state.splitedExpenses);
+        if (sum > this.state.sum) {
+            that.setState({
+                //Why '${}' string template doesn't work?   
+                errorMessage: "The total itemized amount "+sum +" does not equal the total amount of the transaction "+ this.state.sum + ". Please correct the values and try again."
+            })
+        }
+        else {
+            this.setState({ modalIsOpen: false, errorMessage:"" });
+            var mainExpense = this.state.mainExpense
+            var addExpense = this.props.addExpense
+            this.state.splitedExpenses.slice(1).forEach(function (expense) {
+                if (expense.amount && expense.category && expense.amount > 0) {
+                    var newExpense = {
+                        "id": Date.now(),
+                        "tranactionDate": mainExpense.tranactionDate,
+                        "transactionDetails": mainExpense.transactionDetails,
+                        "transactionBankType": mainExpense.transactionBankType,
+                        "transactionType": mainExpense.transactionType,
+                        "account": mainExpense.account,
+                        "amount": expense.amount,
+                        "approved": true,
+                        "category": expense.category,
+                        "notes": mainExpense.notes
+                    }
+                    addExpense(newExpense)
+                }
+                else {
+                    //TODO show validation error
+                }
+            });
+            mainExpense.amount = this.state.splitedExpenses[0].amount;
+            mainExpense.category = this.state.splitedExpenses[0].category;
+            this.props.updateExpense(mainExpense);
+            this.setDefaultState(false);
+            this.props.closeModal();
+        }
     }
     render() {
         const splitedExp = this.state.splitedExpenses.map((expense) => {
@@ -155,6 +174,7 @@ class SplitExpense extends React.Component {
                 style={customStyles}
                 contentLabel="Podział wydatku">
                 <h3 ref="subtitle">Podziel wydatek</h3>
+                <div><label>{this.state.errorMessage}</label> </div>
                 <div className="row">
                     <div className="col-xs-6">
                         <label>Całość</label>
