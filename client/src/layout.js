@@ -1,5 +1,6 @@
 import React from "react";
 import Nav from "./nav";
+import Sidebar from './components/Sidebar';
 
 export default class Layout extends React.Component {
   render() {
@@ -10,9 +11,7 @@ export default class Layout extends React.Component {
     console.log("layout");
     return (
       <div>
-
-        <Nav location={location} />
-
+    <Sidebar {...this.props}/>
         <div className="container" style={containerStyle}>
           <div className="row">
             <div className="col-lg-12">
