@@ -46,27 +46,24 @@ class Header extends Component {
             <a className="nav-link" href="#">Dashboard</a>
           </li>
           <li className="nav-item px-1">
-            <a className="nav-link" href="#">Users</a>
+            <a className="nav-link" href="#">Budget</a>
           </li>
-          <li className="nav-item px-1">
-            <a className="nav-link" href="#">Settings</a>
-          </li>
-        </ul>
+         </ul>
         <ul className="nav navbar-nav ml-auto">
           <li className="nav-item hidden-md-down">
             <a className="nav-link" href="#"><i className="icon-bell"></i><span className="badge badge-pill badge-danger">5</span></a>
           </li>
-          <li className="nav-item hidden-md-down">
-            <a className="nav-link" href="#"><i className="icon-list"></i></a>
+           <li className="nav-item hidden-md-down">
+            <a className="nav-link" href="#"><i className="icon-cloud-upload"></i></a>
           </li>
-          <li className="nav-item hidden-md-down">
-            <a className="nav-link" href="#"><i className="icon-location-pin"></i></a>
+           <li className="nav-item hidden-md-down">
+            <a className="nav-link" href="#"><i className="icon-bell"></i></a>
           </li>
           <li className="nav-item">
             <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
               <a onClick={this.toggle} className="nav-link dropdown-toggle nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded={this.state.dropdownOpen}>
-                <img src={'img/avatars/6.jpg'} className="img-avatar" alt="admin@bootstrapmaster.com"/>
-                <span className="hidden-md-down">admin</span>
+                <img src={'img/avatars/marta.jpg'} className="img-avatar" alt="martanocon@gmail.com"/>
+                <span className="hidden-md-down">Marta</span>
               </a>
 
               <DropdownMenu className="dropdown-menu-right">
@@ -76,13 +73,6 @@ class Header extends Component {
                 <DropdownItem><i className="fa fa-envelope-o"></i> Messages<span className="badge badge-success">42</span></DropdownItem>
                 <DropdownItem><i className="fa fa-tasks"></i> Tasks<span className="badge badge-danger">42</span></DropdownItem>
                 <DropdownItem><i className="fa fa-comments"></i> Comments<span className="badge badge-warning">42</span></DropdownItem>
-
-                <DropdownItem header className="text-center"><strong>Settings</strong></DropdownItem>
-
-                <DropdownItem><i className="fa fa-user"></i> Profile</DropdownItem>
-                <DropdownItem><i className="fa fa-wrench"></i> Settings</DropdownItem>
-                <DropdownItem><i className="fa fa-usd"></i> Payments<span className="badge badge-default">42</span></DropdownItem>
-                <DropdownItem><i className="fa fa-file"></i> Projects<span className="badge badge-primary">42</span></DropdownItem>
                 <DropdownItem divider />
                 <DropdownItem><i className="fa fa-shield"></i> Lock Account</DropdownItem>
                 <DropdownItem><i className="fa fa-lock"></i> Logout</DropdownItem>
@@ -90,10 +80,7 @@ class Header extends Component {
               </DropdownMenu>
             </Dropdown>
           </li>
-          <li className="nav-item hidden-md-down">
-            <a className="nav-link navbar-toggler aside-menu-toggler" onClick={this.asideToggle} href="#">&#9776;</a>
-          </li>
-        </ul>
+          </ul>
       </header>
     )
   }
