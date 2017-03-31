@@ -20,8 +20,8 @@ class ExpenseRow extends React.Component {
   openModal() {
     this.setState({ modalIsOpen: true });
   }
-  closeModal(){
-     this.setState({ modalIsOpen: false });
+  closeModal() {
+    this.setState({ modalIsOpen: false });
   }
   handleClick(e) {
     this.props.acceptExpense(this.props.expense);
@@ -41,28 +41,42 @@ class ExpenseRow extends React.Component {
     var expenseState = this.props.expense.approved ? "success" : "warning";
 
     return (
-      <tr className={expenseState}>
-        <td style={{ width: "10%" }}>{new Date(this.props.expense.tranactionDate).toLocaleDateString()}</td>
-        <td style={{ width: "20%" }}>{this.props.expense.transactionDetails}</td>
-        <td className="transactionType">{this.props.expense.transactionBankType}</td>
-        <td>{this.props.expense.transactionType}</td>
-        <td>{this.props.expense.account}</td>
-        <td>{this.props.expense.amount}</td>
-        <td>
-          <select placeholder="Kategoria" value={this.props.expense.category} onChange={this.handleCategoryChange}>
-          <option value=''>Wybierz...</option>
-            <option value="Spożywcze">Spożywcze</option>
-            <option value="Alkohol">Alkohol</option>
-            <option value="Samochód">Samochód</option>
-            <option value="Transport">Transport</option>
-            <option value="Mieszkanie">Mieszkanie</option>
-          </select>
+      <tr>
+        <td className="text-center">
+          <div>{new Date(this.props.expense.tranactionDate).toLocaleDateString()}</div>
         </td>
-        <td>{this.props.expense.notes}</td>
-        <td><button className="btn btn-success btn-lg" style={{ width: "25%" }} disabled={disabled} onClick={this.handleClick}>OK</button>
-          <button className="btn btn-danger btn-lg" style={{ width: "25%" }} onClick={this.handleDelete}>Del</button>
-          <button className="btn btn-info btn-lg" style={{ width: "50%" }} onClick={this.openModal}>Split</button>
-          <SplitExpense modalIsOpen={this.state.modalIsOpen} closeModal={this.closeModal} expense={this.props.expense} addExpense={this.props.addExpense} updateExpense={this.props.updateExpense} />
+        <td>
+          <div>{this.props.expense.amount}</div>
+        </td>
+        <td className="text-center">
+          <div>{this.props.expense.transactionDetails}</div>
+          <div className="small text-muted">
+            <span>Notes</span> | {this.props.expense.notes}
+          </div>
+        </td>
+        <td>
+          <div className="clearfix">
+            <div className="float-left">
+              <select value={this.props.expense.category} onChange={this.handleCategoryChange} className="form-control" size="1">
+                <option value=''>Wybierz...</option>
+                <option value="Spożywcze">Spożywcze</option>
+                <option value="Alkohol">Alkohol</option>
+                <option value="Samochód">Samochód</option>
+                <option value="Transport">Transport</option>
+                <option value="Mieszkanie">Mieszkanie</option>
+              </select>
+            </div>
+
+          </div>
+        </td>
+        <td className="text-center">
+          <i className="fa fa-cc-mastercard" style={{ fontSize: 24 + 'px' }}></i>
+        </td>
+        <td>
+          <i className="fa fa-thumbs-up" style={{ fontSize: 24 + 'px' }} onClick={this.handleClick}></i>
+          <i className="fa fa-trash" style={{ fontSize: 24 + 'px' }} onClick = {this.handleDelete}></i>
+          <i className="fa fa-bars" style={{ fontSize: 24 + 'px' }} onClick={this.openModal}></i>
+           <SplitExpense modalIsOpen={this.state.modalIsOpen} closeModal={this.closeModal} expense={this.props.expense} addExpense={this.props.addExpense} updateExpense={this.props.updateExpense} />
         </td>
       </tr>
     );

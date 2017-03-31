@@ -57,7 +57,7 @@ class Header extends Component {
             <a className="nav-link" href="#"><i className="icon-cloud-upload"></i></a>
           </li>
            <li className="nav-item hidden-md-down">
-            <a className="nav-link" href="#"><i className="icon-bell"></i></a>
+            <a className="nav-link" href="#"><i className="icon-magnifier-add"></i></a>
           </li>
           <li className="nav-item">
             <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
