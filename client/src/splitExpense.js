@@ -1,6 +1,6 @@
 import React from "react";
-import Modal from 'react-modal';
 import SplitedExpenseRow from './splitedExpenseRow';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 const customStyles = {
     content: {
@@ -118,16 +118,16 @@ class SplitExpense extends React.Component {
 
     saveSpiltedExpense() {
         var that = this;
-        
+
         var sum = this.getSumOfExpenses(this.state.splitedExpenses);
         if (sum > this.state.sum) {
             that.setState({
                 //Why '${}' string template doesn't work?   
-                errorMessage: "The total itemized amount "+sum +" does not equal the total amount of the transaction "+ this.state.sum + ". Please correct the values and try again."
+                errorMessage: "The total itemized amount " + sum + " does not equal the total amount of the transaction " + this.state.sum + ". Please correct the values and try again."
             })
         }
         else {
-            this.setState({ modalIsOpen: false, errorMessage:"" });
+            this.setState({ modalIsOpen: false, errorMessage: "" });
             var mainExpense = this.state.mainExpense
             var addExpense = this.props.addExpense
             this.state.splitedExpenses.slice(1).forEach(function (expense) {
@@ -167,33 +167,40 @@ class SplitExpense extends React.Component {
         });
 
         return (
-            <Modal
-                isOpen={this.state.modalIsOpen}
-                onAfterOpen={this.afterOpenModal}
-                onRequestClose={this.closeModal}
-                style={customStyles}
-                contentLabel="Podział wydatku">
-                <h3 ref="subtitle">Podziel wydatek</h3>
-                <div><label>{this.state.errorMessage}</label> </div>
-                <div className="row">
-                    <div className="col-xs-6">
-                        <label>Całość</label>
-                    </div>
-                    <div className="col-xs-6">
-                        <label>{this.state.sum}</label>
-                    </div>
-                    <form>
-                        {splitedExp}
-                        <div className="col-xs-6">
-                            <button className="btn btn-info btn-sm" onClick={this.addNewExpense}>Nowy wydatek</button>
-                        </div>
-                        <div className="form-group col-xs-12">
-                            <button className="btn btn-success btn-md" onClick={this.saveSpiltedExpense}>OK</button>
-                            <button className="btn btn-warning btn-md" onClick={this.closeModal}>Anuluj</button>
-                        </div>
-                    </form>
+            <Modal isOpen={this.state.modalIsOpen} toggle={this.closeModal} className={'modal-primary'}>
+                <ModalHeader toggle={this.togglePrimary}>Split Expense</ModalHeader>
+                <ModalBody>
+            
+            <div className="card">
+              <div className="card-header">
+                <strong>Horizontal</strong> Form
+              </div>
+              <div className="card-block">
+                <form className="form-horizontal ">
+                  <div className="form-group row">
+                <div className="col-md-6 ">
+                        <label><strong>Całość</strong></label>
                 </div>
+                <div className="col-md-6">
+                         <label><strong>{this.state.sum}</strong></label>
+                </div>
+            </div>
+
+                    {splitedExp}
+                            <div className="col-xs-6">
+                                <button className="btn btn-info btn-sm" onClick={this.addNewExpense}>Nowy wydatek</button>
+                            </div>
+                </form>
+              </div>
+            </div> 
+                </ModalBody>
+                <ModalFooter>
+                    <Button color="primary" onClick={this.saveSpiltedExpense}>Save</Button>{' '}
+                    <Button color="secondary" onClick={this.closeModal}>Cancel</Button>
+                </ModalFooter>
             </Modal>
+
+            
         );
     }
 
