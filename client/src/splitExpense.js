@@ -2,18 +2,6 @@ import React from "react";
 import SplitedExpenseRow from './splitedExpenseRow';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
-const customStyles = {
-    content: {
-        top: '50%',
-        left: '50%',
-        right: 'auto',
-        bottom: 'auto',
-        marginRight: '-50%',
-        transform: 'translate(-50%, -50%)'
-    }
-};
-
-
 class SplitExpense extends React.Component {
     constructor(props) {
         super(props);
@@ -170,37 +158,29 @@ class SplitExpense extends React.Component {
             <Modal isOpen={this.state.modalIsOpen} toggle={this.closeModal} className={'modal-primary'}>
                 <ModalHeader toggle={this.togglePrimary}>Split Expense</ModalHeader>
                 <ModalBody>
-            
-            <div className="card">
-              <div className="card-header">
-                <strong>Horizontal</strong> Form
-              </div>
-              <div className="card-block">
-                <form className="form-horizontal ">
-                  <div className="form-group row">
-                <div className="col-md-6 ">
-                        <label><strong>Całość</strong></label>
-                </div>
-                <div className="col-md-6">
-                         <label><strong>{this.state.sum}</strong></label>
-                </div>
-            </div>
-
-                    {splitedExp}
-                            <div className="col-xs-6">
-                                <button className="btn btn-info btn-sm" onClick={this.addNewExpense}>Nowy wydatek</button>
+                    <form className="form-horizontal ">
+                        <div className="form-group row">
+                           <div className="col-md-12">
+                        <label className="errorMessage">{this.state.errorMessage} </label>
+                        </div>
+                            <div className="col-md-6 ">
+                                <label><strong>SUM</strong></label>
                             </div>
-                </form>
-              </div>
-            </div> 
+                            <div className="col-md-6">
+                                <label><strong>{this.state.sum}</strong></label>
+                            </div>
+                        </div>
+                        {splitedExp}
+                        <div className="col-xs-6">
+                            <button className="btn btn-info btn-sm" onClick={this.addNewExpense}>New expense</button>
+                        </div>
+                    </form>
                 </ModalBody>
                 <ModalFooter>
                     <Button color="primary" onClick={this.saveSpiltedExpense}>Save</Button>{' '}
                     <Button color="secondary" onClick={this.closeModal}>Cancel</Button>
                 </ModalFooter>
             </Modal>
-
-            
         );
     }
 
