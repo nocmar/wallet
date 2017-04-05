@@ -4,6 +4,7 @@ import DatePicker from "react-datepicker";
 import { Panel, Accordion } from 'react-bootstrap';
 import styles from './styles/newExpense-styles';
 import '../node_modules/react-datepicker/dist/react-datepicker.css';
+import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 export default class NewExpense extends React.Component {
   constructor(props) {
@@ -11,6 +12,7 @@ export default class NewExpense extends React.Component {
 
     this.state = {
       showButton: true,
+      modalIsOpen: false,
       details: "",
       amount: null,
       notes: "",
@@ -34,7 +36,7 @@ export default class NewExpense extends React.Component {
     //this.setState({date: date.toDate()});
   }
   handleAddNewClick(event) {
-    this.setState({ showButton: false })
+    this.setState({ showButton: false,     modalIsOpen: true})
   }
 
   handleOKClick(event) {
@@ -53,6 +55,7 @@ export default class NewExpense extends React.Component {
     this.props.addExpense(expense);
     this.setState({
       showButton: true,
+      modalIsOpen: false ,
       details: "",
       amount: null,
       notes: "",
@@ -63,7 +66,7 @@ export default class NewExpense extends React.Component {
   }
 
   handleCancelClick(event) {
-    this.setState({ showButton: true })
+    this.setState({ showButton: true,    modalIsOpen: false })
   }
 
   render() {
@@ -75,54 +78,69 @@ export default class NewExpense extends React.Component {
     }
     else {
       return (
-        <div className="col-lg-3">
-          <Panel header={<span>Nowy wydatek</span>} >
-            <Accordion>
-              <div className="form-group input-group">
-                <span className="input-group-addon">$</span>
-                <input type="text" className="form-control" name="amount" onChange={this.handleInputChange.bind(this)} value={this.state.amount} placeholder="Kwota" />
-              </div>
-              <div className="form-group input-group" style={styles.form}  >
-                <label className="control-label">Kategoria</label>
-                <select placeholder="Kategoria" value={this.state.category} name="category" onChange={this.handleInputChange.bind(this)}>
+ <Modal isOpen={this.state.modalIsOpen} toggle={this.closeModal} className={'modal-primary'}>
+                <ModalHeader toggle={this.togglePrimary}>New expense</ModalHeader>
+                <ModalBody>
+                    <form className="form-horizontal ">
+
+  <div className="form-group row">
+                    <label className="col-md-4 form-control-label">Amount</label>
+                    <div className="col-md-8">
+                       <div className="input-prepend input-group">
+                        <span className="input-group-addon">$</span>
+                        <input type="number" className="form-control" name="amount" onChange={this.handleInputChange.bind(this)} value={this.state.amount} placeholder="Amount" />
+                        </div>
+                    </div>
+                  </div> 
+                <div className="form-group row">
+                    <label className="col-md-4 form-control-label">Category</label>
+                    <div className="col-md-8">
+                       <select placeholder="Kategoria" value={this.state.category} name="category" className="form-control" size="1" onChange={this.handleInputChange.bind(this)}>
+                   <option value="">Select...</option>
                   <option value="Spożywcze">Spożywcze</option>
                   <option value="Alkohol">Alkohol</option>
                   <option value="Samochód">Samochód</option>
                   <option value="Transport">Transport</option>
                   <option value="Mieszkanie">Mieszkanie</option>
                 </select>
-              </div>
-              <div className="form-group input-group" style={styles.form} >
-                <label className="control-label">Opis</label>
-                <input type="text" className="form-control" name="details" onChange={this.handleInputChange.bind(this)} value={this.state.details} />
-
-              </div>
-              <Panel header={<h4 className="panel-title">
-                <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">Szczegóły</a>
-              </h4>} eventKey="1">
-                <div className="form-group input-group" style={styles.form}  >
-                  <label className="control-label">Konto</label>
-                  <select placeholder="Konto">
+                    </div>
+                  </div> 
+              <div className="form-group row">
+                    <label className="col-md-4 form-control-label">Description</label>
+                    <div className="col-md-8">
+                        <input type="text" className="form-control" name="details" onChange={this.handleInputChange.bind(this)} value={this.state.details} />
+                    </div>
+                  </div> 
+                <div className="form-group row">
+                    <label className="col-md-4 form-control-label">Account</label>
+                    <div className="col-md-8">
+                           <select placeholder="Konto" className="form-control" size="1">
                     <option value="Portfel">Portfel</option>
                     <option value="mbank">Karta mbank</option>
                   </select>
-                </div>
-                <div className="form-group input-group" style={styles.form}>
-                  <label className="control-label">Data transakcji</label>
-                  <DatePicker selected={this.state.date}
+                    </div>
+                  </div> 
+                   <div className="form-group row">
+                    <label className="col-md-4 form-control-label">Transaction date</label>
+                    <div className="col-md-8">
+                          <DatePicker selected={this.state.date}
                     onChange={this.handleDateChange.bind(this)} />
-                </div>
-                <div className="form-group input-group" style={styles.form}  >
-                  <label className="control-label">Notatki</label>
-                  <input type="text" className="form-control" name="notes" onChange={this.handleInputChange.bind(this)} value={this.state.notes} />
-                </div>
-              </Panel>
-            </Accordion>
-            <button className="btn btn-success btn-lg" style={{ width: "50%" }} onClick={this.handleOKClick.bind(this)}>OK</button>
-            <button className="btn btn-warning btn-lg" style={{ width: "50%" }} onClick={this.handleCancelClick.bind(this)}>Anuluj</button>
-          </Panel>
-        </div>
-
+                    </div>
+                  </div> 
+                <div className="form-group row">
+                    <label className="col-md-4 form-control-label">Notes</label>
+                    <div className="col-md-8">
+                          <input type="text" className="form-control" name="notes" onChange={this.handleInputChange.bind(this)} value={this.state.notes} />
+                    </div>
+                  </div> 
+                                    
+                    </form>
+                </ModalBody>
+                <ModalFooter>
+                                      <Button color="primary" onClick={this.handleOKClick.bind(this)}>Save</Button>{' '}
+                    <Button color="secondary" onClick={this.closeModal}>Cancel</Button>
+                </ModalFooter>
+            </Modal>
       )
     }
   }
