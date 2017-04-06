@@ -1,5 +1,5 @@
 import React from "react";
-import ExpenseRow from "./ExpenseRow"
+import ExpenseRow from "./expenseRow"
 import NewExpense from "./newExpense"
 import { Panel } from "react-bootstrap"
 

@@ -1,5 +1,5 @@
 import React from "react";
-import SplitExpense from './splitExpense'
+import SplitExpense from '../SplitExpense/splitExpense'
 
 class ExpenseRow extends React.Component {
   constructor(props) {

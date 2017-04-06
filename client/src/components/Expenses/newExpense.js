@@ -2,7 +2,7 @@ import React from "react";
 import moment from "moment";
 import DatePicker from "react-datepicker";
 import { Panel, Accordion } from 'react-bootstrap';
-import '../node_modules/react-datepicker/dist/react-datepicker.css';
+import '../../../node_modules/react-datepicker/dist/react-datepicker.css';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
 export default class NewExpense extends React.Component {
