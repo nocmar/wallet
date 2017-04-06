@@ -307,7 +307,7 @@ class Dashboard extends Component {
                   </Dropdown>
                 </div>
                 <h4 className="mb-0">9.823</h4>
-                <p>Members online</p>
+                <p>Income this month</p>
               </div>
               <div className="chart-wrapper px-1">
                 <Line data={cardChartData1} options={cardChartOpts1} height={70}/>
@@ -322,7 +322,7 @@ class Dashboard extends Component {
                   <i className="icon-location-pin"></i>
                 </button>
                 <h4 className="mb-0">9.823</h4>
-                <p>Members online</p>
+                <p>Expenses this month</p>
               </div>
               <div className="chart-wrapper px-1">
                 <Line data={cardChartData2} options={cardChartOpts2} height={70}/>
@@ -344,7 +344,7 @@ class Dashboard extends Component {
                   </div>
                 </div>
                 <h4 className="mb-0">9.823</h4>
-                <p>Members online</p>
+                <p>Budget balance</p>
               </div>
               <div className="chart-wrapper">
                 <Line data={cardChartData3} options={cardChartOpts3} height={70}/>
@@ -366,7 +366,7 @@ class Dashboard extends Component {
                   </div>
                 </div>
                 <h4 className="mb-0">9.823</h4>
-                <p>Members online</p>
+                <p>Savings</p>
               </div>
               <div className="chart-wrapper px-1">
                 <Bar data={cardChartData4} options={cardChartOpts4} height={70}/>

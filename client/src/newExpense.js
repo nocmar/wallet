@@ -2,7 +2,6 @@ import React from "react";
 import moment from "moment";
 import DatePicker from "react-datepicker";
 import { Panel, Accordion } from 'react-bootstrap';
-import styles from './styles/newExpense-styles';
 import '../node_modules/react-datepicker/dist/react-datepicker.css';
 import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
 
@@ -138,7 +137,7 @@ export default class NewExpense extends React.Component {
                 </ModalBody>
                 <ModalFooter>
                                       <Button color="primary" onClick={this.handleOKClick.bind(this)}>Save</Button>{' '}
-                    <Button color="secondary" onClick={this.closeModal}>Cancel</Button>
+                    <Button color="secondary" onClick={this.handleCancelClick.bind(this)}>Cancel</Button>
                 </ModalFooter>
             </Modal>
       )
