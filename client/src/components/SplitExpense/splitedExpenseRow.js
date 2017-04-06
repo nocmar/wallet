@@ -16,10 +16,9 @@ class SplitedExpenseRow extends React.Component {
     }
     render() {
         return (
-
-            <div>
-                <div className="col-xs-6">
-                    <select placeholder="Kategoria" value={this.props.category} onChange={this.handleCategoryChange}>
+            <div className="form-group row">
+                <div className="col-md-6 ">
+                    <select  value={this.props.category} onChange={this.handleCategoryChange} className="form-control" size="1">
                         <option value=''>Wybierz...</option>
                         <option value="Spożywcze">Spożywcze</option>
                         <option value="Alkohol">Alkohol</option>
@@ -28,10 +27,11 @@ class SplitedExpenseRow extends React.Component {
                         <option value="Mieszkanie">Mieszkanie</option>
                     </select>
                 </div>
-                <div className="col-xs-6">
-                    <input type="number" className="form-control"  value={this.props.amount} onChange={this.handleAmountChange} />
+                <div className="col-md-6">
+               <input type="number" className="form-control" value={this.props.amount} onChange={this.handleAmountChange} />
                 </div>
-            </div>);
+            </div>
+       );
     }
 }
 export default SplitedExpenseRow;
