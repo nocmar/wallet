@@ -8815,3 +8815,12 @@ base-chart.chart {
 .form-error {
     color:red;
 }
+
+.icon-table{
+  font-size: 24px;
+  padding: 0 8px 0 8px;
+}
+
+.notapproved-expense{
+  background-color:#eceff1;
+}

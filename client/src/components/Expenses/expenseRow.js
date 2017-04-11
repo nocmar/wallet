@@ -37,11 +37,11 @@ class ExpenseRow extends React.Component {
 
   render() {
 
-    var disabled = (this.props.expense.approved);
-    var expenseState = this.props.expense.approved ? "success" : "warning";
+    var approved = (this.props.expense.approved);
+    var expenseState = this.props.expense.approved ? "approved-expense" : "notapproved-expense";
 
     return (
-      <tr>
+      <tr className={expenseState}>
         <td className="text-center">
           <div>{new Date(this.props.expense.tranactionDate).toLocaleDateString()}</div>
         </td>
@@ -57,6 +57,7 @@ class ExpenseRow extends React.Component {
         <td>
           <div className="clearfix">
             <div className="float-left">
+            {!approved && 
               <select value={this.props.expense.category} onChange={this.handleCategoryChange} className="form-control" size="1">
                 <option value=''>Wybierz...</option>
                 <option value="Spożywcze">Spożywcze</option>
@@ -64,7 +65,10 @@ class ExpenseRow extends React.Component {
                 <option value="Samochód">Samochód</option>
                 <option value="Transport">Transport</option>
                 <option value="Mieszkanie">Mieszkanie</option>
-              </select>
+              </select>}
+              {approved && <div>{this.props.expense.category}</div>
+
+              }
             </div>
 
           </div>
@@ -73,9 +77,10 @@ class ExpenseRow extends React.Component {
           <i className="fa fa-cc-mastercard" style={{ fontSize: 24 + 'px' }}></i>
         </td>
         <td>
-          <i className="fa fa-thumbs-up" style={{ fontSize: 24 + 'px' }} onClick={this.handleClick}></i>
-          <i className="fa fa-trash" style={{ fontSize: 24 + 'px' }} onClick = {this.handleDelete}></i>
-          <i className="fa fa-bars" style={{ fontSize: 24 + 'px' }} onClick={this.openModal}></i>
+        
+          {!approved && <i className="fa fa-thumbs-up icon-table" onClick={this.handleClick}></i>}
+          <i className="fa fa-trash icon-table" onClick = {this.handleDelete}></i>
+          <i className="fa fa-bars icon-table" onClick={this.openModal}></i>
            <SplitExpense modalIsOpen={this.state.modalIsOpen} closeModal={this.closeModal} expense={this.props.expense} addExpense={this.props.addExpense} updateExpense={this.props.updateExpense} />
         </td>
       </tr>
