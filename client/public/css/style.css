@@ -8812,7 +8812,6 @@ base-chart.chart {
   *[dir="rtl"] .callout-success {
     border-right-color: #4dbd74; }
 
-
-.errorMessage{
-  color:red;
+.form-error {
+    color:red;
 }

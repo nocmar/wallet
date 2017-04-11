@@ -9,6 +9,7 @@ import Layout from "./layout";
 import Dashboard from "./components/Dashboard/dashboard";
 import { Provider } from "react-redux"
 import store from "./store"
+import './validationRules';
 
 ReactDOM.render(
   <Provider store={store}>
