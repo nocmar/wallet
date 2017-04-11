@@ -9,7 +9,7 @@ import Validation from 'react-validation';
 export default class NewExpense extends React.Component {
   constructor(props) {
     super(props);
-
+   
     this.state = {
       showButton: true,
       modalIsOpen: false,
@@ -31,9 +31,9 @@ export default class NewExpense extends React.Component {
   }
 
   handleDateChange(date) {
-    //alert(event.target.value);
-    alert(typeof (date));
-    //this.setState({date: date.toDate()});
+    this.setState({
+      date:  date
+    });
   }
   handleAddNewClick(event) {
     this.setState({ showButton: false, modalIsOpen: true })
@@ -111,7 +111,7 @@ export default class NewExpense extends React.Component {
               <div className="form-group row">
                 <label className="col-md-4 form-control-label">Description</label>
                 <div className="col-md-8">
-                  <input type="text" className="form-control" validations={['required']} name="details" onChange={this.handleInputChange.bind(this)} value={this.state.details} />
+                  <input type="text" className="form-control" name="details" onChange={this.handleInputChange.bind(this)} value={this.state.details} />
                 </div>
               </div>
               <div className="form-group row">
@@ -126,8 +126,7 @@ export default class NewExpense extends React.Component {
               <div className="form-group row">
                 <label className="col-md-4 form-control-label">Transaction date</label>
                 <div className="col-md-8">
-                  <DatePicker selected={this.state.date} className="form-control" 
-                    onChange={this.handleDateChange.bind(this)} />
+                  <DatePicker dateFormat="DD/MM/YYYY" selected={this.state.date} className="form-control" onChange={this.handleDateChange.bind(this)} />
                 </div>
               </div>
               <div className="form-group row">
