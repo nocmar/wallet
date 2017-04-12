@@ -8812,7 +8812,15 @@ base-chart.chart {
   *[dir="rtl"] .callout-success {
     border-right-color: #4dbd74; }
 
+.form-error {
+    color:red;
+}
 
-.errorMessage{
-  color:red;
+.icon-table{
+  font-size: 24px;
+  padding: 0 8px 0 8px;
+}
+
+.notapproved-expense{
+  background-color:#eceff1;
 }
