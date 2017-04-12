@@ -17,6 +17,7 @@
     "react-addons-test-utils": "^15.4.2",
     "react-bootstrap": "^0.30.7",
     "react-chartjs-2": "^2.0.5",
+    "react-data-grid": "^2.0.26",
     "react-datepicker": "^0.41.1",
     "react-dom": "^15.4.2",
     "react-modal": "^1.7.3",

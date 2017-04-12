@@ -1,9 +1,58 @@
-import React from "react";
+import React from "react"
 import ExpenseRow from "./expenseRow"
 import NewExpense from "./newExpense"
 import { Panel } from "react-bootstrap"
+import ReactDataGrid from "react-data-grid"
 
 export default class ExpenseTable extends React.Component {
+    constructor(props) {
+    super(props);
+     this._columns = [
+      {
+        key: 'amount',
+        name: 'Amount',
+        editable: true
+      },
+      {
+        key: 'details',
+        name: 'Details',
+        editable: true
+      },
+      {
+        key: 'category',
+        name: 'Category',
+        editable: true
+      },
+      {
+        key: 'transactionType',
+        name: 'Payment Type',
+        editable: false
+      },
+      {
+        key: 'notes',
+        name: 'Actions',
+        editable: false
+      }
+    ];
+ 
+  }
+
+  rowGetter(i) {
+    return this._rows[i];
+  }
+
+  handleGridRowsUpdated({ fromRow, toRow, updated }) {
+    let rows = this.state.rows.slice();
+
+    for (let i = fromRow; i <= toRow; i++) {
+      let rowToUpdate = rows[i];
+      let updatedRow = React.addons.update(rowToUpdate, {$merge: updated});
+      rows[i] = updatedRow;
+    }
+
+    this.setState({ rows });
+  }
+
   render() {
     let rows = [];
     this.props.expenses.forEach(function (expense) {
@@ -16,27 +65,16 @@ export default class ExpenseTable extends React.Component {
         updateExpense={this.props.updateExpense}
       />);
     }.bind(this));
-
+    this._rows = this.props.expenses;
     return (
-      <div>
-        <NewExpense addExpense={this.props.addExpense} />
-        <table className="table table-hover table-outline mb-0 hidden-sm-down">
-          <thead className="thead-default">
-            <tr>
-              <th className="text-center"><i className="fa fa-calendar"></i></th>
-              <th>Amount</th>
-              <th className="text-center">Detials</th>
-              <th>Category</th>
-              <th className="text-center">Payment Type</th>
-              <th>Actions</th>
+      <ReactDataGrid
+        enableCellSelect={true}
+        columns={this._columns}
+        rowGetter={this.rowGetter.bind(this)}
+        rowsCount={this._rows.length}
+        onGridRowsUpdated={this.handleGridRowsUpdated.bind(this)} />
 
-            </tr>
-          </thead>
-          <tbody>
-            {rows}
-          </tbody>
-        </table>
-      </div>
+      
     );
   }
 }
