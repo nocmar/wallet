@@ -8,30 +8,41 @@ export default class ExpenseTable extends React.Component {
     constructor(props) {
     super(props);
      this._columns = [
+       {
+        key: 'tranactionDate',
+        name: 'Date',
+        editable: true,
+        resizable: true
+      },
       {
         key: 'amount',
         name: 'Amount',
-        editable: true
+        editable: true,
+        resizable: true
       },
       {
         key: 'details',
         name: 'Details',
-        editable: true
+        editable: true,
+        resizable: true
       },
       {
         key: 'category',
         name: 'Category',
-        editable: true
+        editable: true,
+        resizable: true
       },
       {
         key: 'transactionType',
         name: 'Payment Type',
-        editable: false
+        editable: false,
+       resizable: true
       },
       {
         key: 'notes',
         name: 'Actions',
-        editable: false
+        editable: false,
+        resizable: true
       }
     ];
  
@@ -42,7 +53,7 @@ export default class ExpenseTable extends React.Component {
   }
 
   handleGridRowsUpdated({ fromRow, toRow, updated }) {
-    let rows = this.state.rows.slice();
+    let rows = this._rows.slice();
 
     for (let i = fromRow; i <= toRow; i++) {
       let rowToUpdate = rows[i];
