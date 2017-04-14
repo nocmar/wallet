@@ -11,14 +11,14 @@ import * as search from 'searchtabular';
 import * as sort from 'sortabular';
 import * as edit from 'react-edit';
 import { createRow, editRow, confirmEdit } from "../../actions/budgetRowActions";
-import { findIndex } from 'lodash';
+import { connect } from 'react-redux'
 
-export default class Budgets extends React.Component {
+class Budget extends React.Component {
   constructor(props) {
     super(props);
 
     const columns = this.getColumns();
-    const rows = resolve.resolve({ columns })(this.rows);
+    const rows = resolve.resolve({ columns })(this.props.rows);
     this.state = {
       editedCell: null, // Track the edited cell somehow
       searchColumn: 'all',
@@ -49,48 +49,46 @@ export default class Budgets extends React.Component {
     required: ['id', 'category', 'value']
   };
   getColumns() {
-    const editable = edit.edit({
-      // Determine whether the current cell is being edited or not.
-      isEditing: ({ columnIndex, rowData }) => columnIndex === rowData.editing,
-
-      // The user requested activation, mark the current cell as edited.
-      // IMPORTANT! If you stash the rows at this.state.rows, DON'T
-      // mutate it as that will break Table.Body optimization check.
-      onActivate: ({ columnIndex, rowData }) => {
-        const index = findIndex(this.state.rows, { id: rowData.id });
-        const rows = cloneDeep(this.state.rows);
-
-        rows[index].editing = columnIndex;
-
-        this.setState({ rows });
-      },
-
-      // Capture the value when the user has finished and update
-      // application state.
-      onValue: ({ value, rowData, property }) => {
-        const index = findIndex(this.state.rows, { id: rowData.id });
-        const rows = cloneDeep(this.state.rows);
-
-        rows[index][property] = value;
-        rows[index].editing = false;
-
-        // Optional: capture the fact that a field was edited for visualization
-        rows[index].edited = true;
-
-        this.setState({ rows });
-      }
-    });
-    //   const editable = edit.edit({
+    // const editable = edit.edit({
+    //   // Determine whether the current cell is being edited or not.
     //   isEditing: ({ columnIndex, rowData }) => columnIndex === rowData.editing,
+
+    //   // The user requested activation, mark the current cell as edited.
+    //   // IMPORTANT! If you stash the rows at this.state.rows, DON'T
+    //   // mutate it as that will break Table.Body optimization check.
     //   onActivate: ({ columnIndex, rowData }) => {
-    //     alert("edit");
-    //     editRow(columnIndex, rowData.id);
+    //     const index = findIndex(this.state.rows, { id: rowData.id });
+    //     const rows = cloneDeep(this.state.rows);
+
+    //     rows[index].editing = columnIndex;
+
+    //     this.setState({ rows });
     //   },
+
+    //   // Capture the value when the user has finished and update
+    //   // application state.
     //   onValue: ({ value, rowData, property }) => {
-    //      alert("edit");
-    //     confirmEdit(property, value, rowData.id);
+    //     const index = findIndex(this.state.rows, { id: rowData.id });
+    //     const rows = cloneDeep(this.state.rows);
+
+    //     rows[index][property] = value;
+    //     rows[index].editing = false;
+
+    //     // Optional: capture the fact that a field was edited for visualization
+    //     rows[index].edited = true;
+
+    //     this.setState({ rows });
     //   }
     // });
+    const editable = edit.edit({
+      isEditing: ({ columnIndex, rowData }) => columnIndex === rowData.editing,
+      onActivate: ({ columnIndex, rowData }) => {
+        this.props.editRow(columnIndex, rowData.id);
+      },
+      onValue: ({ value, rowData, property }) => {
+        this.props.confirmEdit(property, value, rowData.id);
+      }
+    });
 
 
     const sortable = sort.sort({
@@ -121,7 +119,7 @@ export default class Budgets extends React.Component {
           transforms: [sortable]
         },
         cell: {
-           formatters: [
+          formatters: [
             tree.toggleChildren({
               getRows: () => this.state.rows,
               getShowingChildren: ({ rowData }) => rowData.showingChildren,
@@ -149,37 +147,13 @@ export default class Budgets extends React.Component {
           label: 'Value',
           transforms: [sortable]
         },
-         cell: {
+        cell: {
           transforms: [editable(edit.input())]
         },
         visible: true
       }
     ];
   }
-  rows = [
-    {
-      id: 123,
-      category: 'Demo',
-      value: 100
-    },
-    {
-      id: 456,
-      category: 'Another',
-      value: 100,
-      parent: 123
-    },
-    {
-      id: 789,
-      category: 'Yet Another',
-      value: 100,
-      parent: 123
-    },
-    {
-      id: 532,
-      value: 100,
-      category: 'Foobar'
-    }
-  ];
 
   render() {
     const {
@@ -230,7 +204,7 @@ export default class Budgets extends React.Component {
         >
           <Table.Header />
 
-          <Table.Body rows={rows} rowKey="id" />
+          <Table.Body rows={this.state.rows} rowKey="id" />
         </Table.Provider>
       </div>
     );
@@ -253,3 +227,29 @@ export default class Budgets extends React.Component {
     this.setState({ columns });
   }
 }
+
+
+
+const mapStateToProps = (state) => {
+  return {
+    rows: state.budgetRow.rows
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    editRow: (columnIndex, id) => {
+      dispatch(editRow(columnIndex, id))
+    },
+    confirmEdit:(property, value, id) => {
+      dispatch(confirmEdit(property, value, id))
+    }
+  }
+}
+
+const Budgets = connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Budget)
+
+export default Budgets

@@ -1,8 +1,31 @@
 import { cloneDeep, findIndex } from 'lodash';
 
-export default function reducer (state={rows: []}, action) {
+export default function reducer (state={rows: [
+    {
+      id: 123,
+      category: 'Demo',
+      value: 100
+    },
+    {
+      id: 456,
+      category: 'Another',
+      value: 100,
+      parent: 123
+    },
+    {
+      id: 789,
+      category: 'Yet Another',
+      value: 100,
+      parent: 123
+    },
+    {
+      id: 532,
+      value: 100,
+      category: 'Foobar'
+    }
+  ]}, action) {
   const row = action.row;
-  const index = row && findIndex(state, { id: row.id });
+  const index = row && findIndex(state.rows, { id: row.id });
 
   switch (action.type) {
     case 'CREATE_ROW':
@@ -15,14 +38,14 @@ export default function reducer (state={rows: []}, action) {
 
     case 'EDIT_ROW':
       if (index >= 0) {
-        return editProperty(state, index, {
+        return editProperty(state.rows, index, {
           editing: row.columnIndex
         });
       }
 
     case 'CONFIRM_EDIT':
       if (index >= 0) {
-        return editProperty(state, index, {
+        return editProperty(state.rows, index, {
           [row.property]: row.value,
           editing: false
         });
