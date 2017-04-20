@@ -1,6 +1,6 @@
 import { cloneDeep, findIndex } from 'lodash';
 
-export default function reducer (state={rows: [
+export default function reducer (state=[
     {
       id: 123,
       category: 'Demo',
@@ -23,9 +23,9 @@ export default function reducer (state={rows: [
       value: 100,
       category: 'Foobar'
     }
-  ]}, action) {
+  ], action) {
   const row = action.row;
-  const index = row && findIndex(state.rows, { id: row.id });
+  const index = row && findIndex(state, { id: row.id });
 
   switch (action.type) {
     case 'CREATE_ROW':
@@ -38,14 +38,14 @@ export default function reducer (state={rows: [
 
     case 'EDIT_ROW':
       if (index >= 0) {
-        return editProperty(state.rows, index, {
+        return editProperty(state, index, {
           editing: row.columnIndex
         });
       }
 
     case 'CONFIRM_EDIT':
       if (index >= 0) {
-        return editProperty(state.rows, index, {
+        return editProperty(state, index, {
           [row.property]: row.value,
           editing: false
         });

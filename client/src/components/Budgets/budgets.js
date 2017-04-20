@@ -119,21 +119,21 @@ class Budget extends React.Component {
           transforms: [sortable]
         },
         cell: {
-          formatters: [
-            tree.toggleChildren({
-              getRows: () => this.state.rows,
-              getShowingChildren: ({ rowData }) => rowData.showingChildren,
-              toggleShowingChildren: rowIndex => {
-                const rows = cloneDeep(this.state.rows);
+          // formatters: [
+          //   tree.toggleChildren({
+          //     getRows: () => this.state.rows,
+          //     getShowingChildren: ({ rowData }) => rowData.showingChildren,
+          //     toggleShowingChildren: rowIndex => {
+          //       const rows = cloneDeep(this.state.rows);
 
-                rows[rowIndex].showingChildren = !rows[rowIndex].showingChildren;
+          //       rows[rowIndex].showingChildren = !rows[rowIndex].showingChildren;
 
-                this.setState({ rows });
-              },
-              // Inject custom class name per row here etc.
-              props: {}
-            })
-          ],
+          //       this.setState({ rows });
+          //     },
+          //     // Inject custom class name per row here etc.
+          //     props: {}
+          //   })
+          // ],
           transforms: [editable(edit.input())]
         },
         visible: true
@@ -160,22 +160,22 @@ class Budget extends React.Component {
       searchColumn, columns, sortingColumns, query
     } = this.state;
     const visibleColumns = columns.filter(column => column.visible);
-    const rows = compose(
-      tree.filter({ fieldName: 'showingChildren' }),
-      tree.wrap({
-        operations: [
-          sort.sorter({
-            columns,
-            sortingColumns,
-            sort: orderBy
-          })
-        ]
-      }),
-      tree.search({
-        operation: search.multipleColumns({ columns, query })
-      })
-    )(this.state.rows);
-
+    // const rows = compose(
+    //   tree.filter({ fieldName: 'showingChildren' }),
+    //   tree.wrap({
+    //     operations: [
+    //       sort.sorter({
+    //         columns,
+    //         sortingColumns,
+    //         sort: orderBy
+    //       })
+    //     ]
+    //   }),
+    //   tree.search({
+    //     operation: search.multipleColumns({ columns, query })
+    //   })
+    // )(this.state.rows);
+const rows = this.props.rows;
     return (
       <div>
         <VisibilityToggles
@@ -204,7 +204,7 @@ class Budget extends React.Component {
         >
           <Table.Header />
 
-          <Table.Body rows={this.state.rows} rowKey="id" />
+          <Table.Body rows={rows} rowKey="id" />
         </Table.Provider>
       </div>
     );
@@ -232,7 +232,7 @@ class Budget extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
-    rows: state.budgetRow.rows
+    rows: state.budgetRow
   }
 }
 
