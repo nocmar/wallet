@@ -10,7 +10,7 @@ import * as tree from 'treetabular';
 import * as search from 'searchtabular';
 import * as sort from 'sortabular';
 import * as edit from 'react-edit';
-import { createRow, editRow, confirmEdit } from "../../actions/budgetRowActions";
+import { createRow, editRow, confirmEdit, updateRows } from "../../actions/budgetRowActions";
 import { connect } from 'react-redux'
 
 class Budget extends React.Component {
@@ -19,12 +19,12 @@ class Budget extends React.Component {
 
     const columns = this.getColumns();
     const rows = resolve.resolve({ columns })(this.props.rows);
+    this.props.updateRows(rows);
     this.state = {
       editedCell: null, // Track the edited cell somehow
       searchColumn: 'all',
       query: {},
       sortingColumns: null,
-      rows,
       columns
     };
 
@@ -45,7 +45,7 @@ class Budget extends React.Component {
       value: {
         type: 'integer'
       },
-       sum: {
+      sum: {
         type: 'integer'
       }
     },
@@ -124,14 +124,14 @@ class Budget extends React.Component {
         cell: {
           formatters: [
             tree.toggleChildren({
-              getRows: () => this.state.rows,
+              getRows: () => this.props.rows,
               getShowingChildren: ({ rowData }) => rowData.showingChildren,
               toggleShowingChildren: rowIndex => {
-                const rows = cloneDeep(this.state.rows);
+                const rows = cloneDeep(this.props.rows);
 
                 rows[rowIndex].showingChildren = !rows[rowIndex].showingChildren;
 
-                this.setState({ rows });
+                this.props.updateRows(rows);
               },
               // Inject custom class name per row here etc.
               props: {}
@@ -197,7 +197,7 @@ class Budget extends React.Component {
       // tree.search({
       //   operation: search.multipleColumns({ columns, query })
       // })
-    )(this.state.rows);
+    )(this.props.rows);
     return (
       <div>
         <VisibilityToggles
@@ -232,14 +232,10 @@ class Budget extends React.Component {
     );
   }
   onExpandAll() {
-    this.setState({
-      rows: tree.expandAll()(this.state.rows)
-    });
+    this.props.updateRows(tree.expandAll()(this.props.rows))
   }
   onCollapseAll() {
-    this.setState({
-      rows: tree.collapseAll()(this.state.rows)
-    });
+    this.props.updateRows(tree.collapseAll()(this.props.rows))
   }
   onToggleColumn({ columnIndex }) {
     const columns = cloneDeep(this.state.columns);
@@ -265,6 +261,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     confirmEdit: (property, value, id) => {
       dispatch(confirmEdit(property, value, id))
+    },
+    updateRows: (rows) => {
+      dispatch(updateRows(rows))
     }
   }
 }

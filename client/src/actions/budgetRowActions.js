@@ -36,3 +36,13 @@ export function confirmEdit(property, value, id) {
     })
     }
 }
+
+
+export function updateRows(rows) {
+    return function (dispatch) {
+        dispatch({
+        type: 'UPDATE_ROWS',
+        rows: rows
+    })
+    }
+}

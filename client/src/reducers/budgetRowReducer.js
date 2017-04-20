@@ -50,6 +50,8 @@ export default function reducer (state=[
           editing: false
         });
       }
+   case 'UPDATE_ROWS':
+    return  action.rows;
 
     default:
       return state;
