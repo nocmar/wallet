@@ -4,7 +4,7 @@ export default function reducer (state=[
     {
       id: 123,
       category: 'Demo',
-      value: 100
+      sum: 100
     },
     {
       id: 456,

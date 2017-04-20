@@ -44,9 +44,12 @@ class Budget extends React.Component {
       },
       value: {
         type: 'integer'
+      },
+       sum: {
+        type: 'integer'
       }
     },
-    required: ['id', 'category', 'value']
+    required: ['id', 'category']
   };
   getColumns() {
     // const editable = edit.edit({
@@ -119,21 +122,21 @@ class Budget extends React.Component {
           transforms: [sortable]
         },
         cell: {
-          // formatters: [
-          //   tree.toggleChildren({
-          //     getRows: () => this.state.rows,
-          //     getShowingChildren: ({ rowData }) => rowData.showingChildren,
-          //     toggleShowingChildren: rowIndex => {
-          //       const rows = cloneDeep(this.state.rows);
+          formatters: [
+            tree.toggleChildren({
+              getRows: () => this.state.rows,
+              getShowingChildren: ({ rowData }) => rowData.showingChildren,
+              toggleShowingChildren: rowIndex => {
+                const rows = cloneDeep(this.state.rows);
 
-          //       rows[rowIndex].showingChildren = !rows[rowIndex].showingChildren;
+                rows[rowIndex].showingChildren = !rows[rowIndex].showingChildren;
 
-          //       this.setState({ rows });
-          //     },
-          //     // Inject custom class name per row here etc.
-          //     props: {}
-          //   })
-          // ],
+                this.setState({ rows });
+              },
+              // Inject custom class name per row here etc.
+              props: {}
+            })
+          ],
           transforms: [editable(edit.input())]
         },
         visible: true
@@ -141,7 +144,7 @@ class Budget extends React.Component {
       {
         property: 'value',
         props: {
-          style: { width: 300 }
+          style: { width: 100 }
         },
         header: {
           label: 'Value',
@@ -151,31 +154,50 @@ class Budget extends React.Component {
           transforms: [editable(edit.input())]
         },
         visible: true
+      },
+      ,
+      {
+        property: 'sum',
+        props: {
+          style: { width: 100 }
+        },
+        header: {
+          label: 'Summary',
+          transforms: [sortable]
+        },
+        visible: true
       }
     ];
   }
 
+  // componentWillUpdate() {
+  //   const columns = this.state.columns;
+  //   const rows = resolve.resolve({ columns })(this.props.rows);
+  //   this.setState({
+  //     rows: rows
+  //   });
+  // }
   render() {
     const {
       searchColumn, columns, sortingColumns, query
     } = this.state;
     const visibleColumns = columns.filter(column => column.visible);
-    // const rows = compose(
-    //   tree.filter({ fieldName: 'showingChildren' }),
-    //   tree.wrap({
-    //     operations: [
-    //       sort.sorter({
-    //         columns,
-    //         sortingColumns,
-    //         sort: orderBy
-    //       })
-    //     ]
-    //   }),
-    //   tree.search({
-    //     operation: search.multipleColumns({ columns, query })
-    //   })
-    // )(this.state.rows);
-const rows = this.props.rows;
+    const rows = compose(
+      tree.filter({ fieldName: 'showingChildren' }),
+      tree.wrap({
+        operations: [
+          sort.sorter({
+            columns,
+            sortingColumns,
+            sort: orderBy
+          })
+        ]
+      })
+      // ,
+      // tree.search({
+      //   operation: search.multipleColumns({ columns, query })
+      // })
+    )(this.state.rows);
     return (
       <div>
         <VisibilityToggles
@@ -241,7 +263,7 @@ const mapDispatchToProps = (dispatch) => {
     editRow: (columnIndex, id) => {
       dispatch(editRow(columnIndex, id))
     },
-    confirmEdit:(property, value, id) => {
+    confirmEdit: (property, value, id) => {
       dispatch(confirmEdit(property, value, id))
     }
   }
