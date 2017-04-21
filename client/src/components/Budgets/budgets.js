@@ -21,16 +21,12 @@ class Budget extends React.Component {
     const rows = resolve.resolve({ columns })(this.props.rows);
     this.props.updateRows(rows);
     this.state = {
-      editedCell: null, // Track the edited cell somehow
-      searchColumn: 'all',
-      query: {},
       sortingColumns: null,
       columns
     };
 
     this.onExpandAll = this.onExpandAll.bind(this);
     this.onCollapseAll = this.onCollapseAll.bind(this);
-    this.onToggleColumn = this.onToggleColumn.bind(this);
   }
 
   schema = {
@@ -193,32 +189,12 @@ class Budget extends React.Component {
           })
         ]
       })
-      // ,
-      // tree.search({
-      //   operation: search.multipleColumns({ columns, query })
-      // })
+      
     )(this.props.rows);
     return (
       <div>
-        <VisibilityToggles
-          columns={columns}
-          onToggleColumn={this.onToggleColumn}
-        />
-
         <button onClick={this.onExpandAll}>Expand all</button>
         <button onClick={this.onCollapseAll}>Collapse all</button>
-
-        <div className="search-container">
-          <span>Search</span>
-          <search.Field
-            column={searchColumn}
-            query={query}
-            columns={visibleColumns}
-            rows={rows}
-            onColumnChange={searchColumn => this.setState({ searchColumn })}
-            onChange={query => this.setState({ query })}
-          />
-        </div>
 
         <Table.Provider
           className="pure-table pure-table-striped"
@@ -236,13 +212,6 @@ class Budget extends React.Component {
   }
   onCollapseAll() {
     this.props.updateRows(tree.collapseAll()(this.props.rows))
-  }
-  onToggleColumn({ columnIndex }) {
-    const columns = cloneDeep(this.state.columns);
-
-    columns[columnIndex].visible = !columns[columnIndex].visible;
-
-    this.setState({ columns });
   }
 }
 
