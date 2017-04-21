@@ -139,7 +139,17 @@ class Budget extends React.Component {
           columns={visibleColumns}
         >
           <Table.Header />
+   <tbody>
+            <tr>
+              <td><button type="button" onClick={e => {
+                e.preventDefault();
 
+                this.props.createRow();
+              }}>Add new</button></td>
+              <td></td>
+              <td></td>
+                      </tr>
+          </tbody>
           <Table.Body rows={rows} rowKey="id" />
         </Table.Provider>
       </div>
@@ -152,8 +162,6 @@ class Budget extends React.Component {
     this.props.updateRows(tree.collapseAll()(this.props.rows))
   }
 }
-
-
 
 const mapStateToProps = (state) => {
   return {
@@ -171,6 +179,9 @@ const mapDispatchToProps = (dispatch) => {
     },
     updateRows: (rows) => {
       dispatch(updateRows(rows))
+    },
+    createRow: ()=>{
+      dispatch(createRow())
     }
   }
 }

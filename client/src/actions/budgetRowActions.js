@@ -1,8 +1,10 @@
+import uuid from 'uuid';
+
 export function createRow() {
     return function (dispatch) {
         dispatch({
             type: 'CREATE_ROW',
-            row: { name: 'John Doe', id: 11 }
+            row: { category: 'Category', value:0, id: uuid.v4() }
         })
     }
 }
