@@ -28,58 +28,8 @@ class Budget extends React.Component {
     this.onExpandAll = this.onExpandAll.bind(this);
     this.onCollapseAll = this.onCollapseAll.bind(this);
   }
-
-  schema = {
-    type: 'object',
-    properties: {
-      id: {
-        type: 'string'
-      },
-      category: {
-        type: 'string'
-      },
-      value: {
-        type: 'integer'
-      },
-      sum: {
-        type: 'integer'
-      }
-    },
-    required: ['id', 'category']
-  };
   getColumns() {
-    // const editable = edit.edit({
-    //   // Determine whether the current cell is being edited or not.
-    //   isEditing: ({ columnIndex, rowData }) => columnIndex === rowData.editing,
-
-    //   // The user requested activation, mark the current cell as edited.
-    //   // IMPORTANT! If you stash the rows at this.state.rows, DON'T
-    //   // mutate it as that will break Table.Body optimization check.
-    //   onActivate: ({ columnIndex, rowData }) => {
-    //     const index = findIndex(this.state.rows, { id: rowData.id });
-    //     const rows = cloneDeep(this.state.rows);
-
-    //     rows[index].editing = columnIndex;
-
-    //     this.setState({ rows });
-    //   },
-
-    //   // Capture the value when the user has finished and update
-    //   // application state.
-    //   onValue: ({ value, rowData, property }) => {
-    //     const index = findIndex(this.state.rows, { id: rowData.id });
-    //     const rows = cloneDeep(this.state.rows);
-
-    //     rows[index][property] = value;
-    //     rows[index].editing = false;
-
-    //     // Optional: capture the fact that a field was edited for visualization
-    //     rows[index].edited = true;
-
-    //     this.setState({ rows });
-    //   }
-    // });
-    const editable = edit.edit({
+   const editable = edit.edit({
       isEditing: ({ columnIndex, rowData }) => columnIndex === rowData.editing,
       onActivate: ({ columnIndex, rowData }) => {
         this.props.editRow(columnIndex, rowData.id);
@@ -88,7 +38,6 @@ class Budget extends React.Component {
         this.props.confirmEdit(property, value, rowData.id);
       }
     });
-
 
     const sortable = sort.sort({
       // Point the transform to your rows. React state can work for this purpose
@@ -165,18 +114,8 @@ class Budget extends React.Component {
       }
     ];
   }
-
-  // componentWillUpdate() {
-  //   const columns = this.state.columns;
-  //   const rows = resolve.resolve({ columns })(this.props.rows);
-  //   this.setState({
-  //     rows: rows
-  //   });
-  // }
   render() {
-    const {
-      searchColumn, columns, sortingColumns, query
-    } = this.state;
+    const {sortingColumns, columns} = this.state;
     const visibleColumns = columns.filter(column => column.visible);
     const rows = compose(
       tree.filter({ fieldName: 'showingChildren' }),
@@ -189,7 +128,6 @@ class Budget extends React.Component {
           })
         ]
       })
-      
     )(this.props.rows);
     return (
       <div>
